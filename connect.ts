@@ -5,8 +5,6 @@ dotenv.config(); // Load environment variables from .env file
 
 const uri: string = process.env.MONGODB_URI as string;
 
-console.log(`MongoDB URI: ${uri}`);
-
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
