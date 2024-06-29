@@ -2,7 +2,7 @@
   "name": "chatterly-be",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node connect.cjs",
     "build": "tsc",

@@ -1,28 +1,22 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
-import * as dotenv from "dotenv";
+import mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
 
 dotenv.config(); // Load environment variables from .env file
 
-const url: string = process.env.MONGODB_URI as string;
+const url: string | undefined = process.env.MONGODB_URI;
 
-const client = new MongoClient(url, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
-
-async function run(): Promise<void> {
-  try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  } finally {
-    await client.close();
-  }
+if (!url) {
+  console.error("Missing MONGODB_URI environment variable");
+  process.exit(1);
 }
 
-run().catch(console.dir);
+mongoose.connect(url, {
+} as mongoose.ConnectOptions);
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log("Connected to MongoDB using Mongoose!");
+});
+
+export default mongoose;
