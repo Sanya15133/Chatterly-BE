@@ -31,13 +31,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config(); // Load environment variables from .env file
-const uri = process.env.MONGODB_URI;
-const client = new mongodb_1.MongoClient(uri, {
+const url = process.env.MONGODB_URI;
+const client = new mongodb_1.MongoClient(url, {
     serverApi: {
         version: mongodb_1.ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
-    }
+    },
 });
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
