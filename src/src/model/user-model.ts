@@ -5,7 +5,6 @@ interface IUser extends Document {
   name: string;
   password: string;
   avatar?: string;
-  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const userSchema: Schema<IUser> = new Schema(
