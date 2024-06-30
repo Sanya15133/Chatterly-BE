@@ -18,7 +18,3 @@ try {
 catch (err) {
     console.error("Error in server setup:", err);
 }
-const server = app.listen(PORT, () => {
-    console.log(`IO Server is running on port ${PORT}`);
-});
-const io = require("socket.io")(server);
