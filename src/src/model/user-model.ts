@@ -36,12 +36,5 @@ userSchema.pre<IUser>("save", async function (next: any) {
   next();
 });
 
-userSchema.methods.comparePassword = function (
-  candidatePassword: string
-): Promise<boolean> {
-  const user = this as IUser;
-  return bcrypt.compare(candidatePassword, user.password);
-};
-
 const User: Model<IUser> = model<IUser>("User", userSchema);
 export default User;
