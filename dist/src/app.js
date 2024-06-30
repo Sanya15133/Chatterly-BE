@@ -17,7 +17,7 @@ app.get("/api/users", (req, res, next) => {
     // logic for adding a new user
 });
 io.on("connection", (socket) => {
-    console.log("a user connected", socket);
+    console.log("a user connected");
 });
 server.listen(3000, () => {
     console.log("server running at http://localhost:3000");
