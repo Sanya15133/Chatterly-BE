@@ -4,8 +4,8 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node connect.cjs",
-    "build": "tsc",
+    "start": "npm start",
+    "build": "tsc build",
     "watch": "tsc --watch"
   },
   "keywords": [],

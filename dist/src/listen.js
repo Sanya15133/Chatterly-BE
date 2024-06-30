@@ -1,9 +1,18 @@
 "use strict";
-const express = require('express');
-const app = express();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
 const PORT = 3000;
-app.listen(PORT, function (err) {
-    if (err)
-        console.log("Error in server setup");
-    console.log("Server listening on Port", PORT);
-});
+try {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    }).on('error', (err) => {
+        console.error('Error in server setup:', err);
+    });
+}
+catch (err) {
+    console.error('Error in server setup:', err);
+}
