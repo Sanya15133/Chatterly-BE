@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
+import connectMongoose from "../connect";
 
 interface IChat extends Document {
   name: string;
@@ -30,3 +31,11 @@ const chatSchema: Schema<IChat> = new Schema(
 
 const Chat: Model<IChat> = model<IChat>("Chat", chatSchema);
 export default Chat;
+
+export async function findChat() {
+  connectMongoose();
+  return await Chat.find().then((chats) => {
+    console.log(chats);
+    return chats;
+  });
+}
