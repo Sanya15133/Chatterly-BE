@@ -22,6 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.findUsers = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
 const connect_1 = __importDefault(require("../connect"));
@@ -59,12 +60,12 @@ const guest = new User({
     password: "123456",
     avatar: "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
 });
-function insertGuest() {
+async function findUsers() {
     (0, connect_1.default)();
-    guest
-        .save()
-        .then(() => console.log("Guest user created"))
-        .catch((error) => console.error("Error creating guest user:", error));
+    return await User.find().then((users) => {
+        console.log(users);
+        return users;
+    });
 }
-insertGuest();
+exports.findUsers = findUsers;
 exports.default = User;

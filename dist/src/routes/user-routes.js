@@ -1,15 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const userRouter = require("express").Router();
 const User = require("../model/user-model");
+const user_controller_1 = require("../controllers/user-controller");
 userRouter.route("/:name");
-userRouter.get("/", async (req, res) => {
-    try {
-        const users = await User.find();
-        console.log(users);
-        res.send(users);
-    }
-    catch (err) {
-        res.status(500).send(err);
-    }
-});
+userRouter.get("/users", user_controller_1.getUsers);
 module.exports = userRouter;
