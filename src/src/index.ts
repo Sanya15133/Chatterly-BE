@@ -1,11 +1,13 @@
 import express from "express";
 import { createServer } from "node:http";
-import connectMongoose from "./connect";
+import connectMongoose from "./connect.js";
 import { Server } from "socket.io";
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+
+const url: string | undefined = process.env.MONGODB_URI;
 
 app.use(express.json());
 
