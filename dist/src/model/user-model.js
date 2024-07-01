@@ -18,9 +18,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
+const connect_1 = __importDefault(require("../connect"));
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -39,10 +43,28 @@ const userSchema = new mongoose_1.Schema({
     timestamps: true,
 });
 userSchema.pre("save", async function (next) {
-    if (this.isModified("password")) {
-        this.password = await bcrypt.hash(this.password, 10);
+    try {
+        if (this.isModified("password")) {
+            this.password = await bcrypt.hash(this.password, 10);
+        }
+        next();
     }
-    next();
+    catch (error) {
+        next();
+    }
 });
 const User = (0, mongoose_1.model)("User", userSchema);
+const guest = new User({
+    name: "Guest",
+    password: "123456",
+    avatar: "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
+});
+function insertGuest() {
+    (0, connect_1.default)();
+    guest
+        .save()
+        .then(() => console.log("Guest user created"))
+        .catch((error) => console.error("Error creating guest user:", error));
+}
+insertGuest();
 exports.default = User;

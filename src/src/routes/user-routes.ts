@@ -1,4 +1,15 @@
 const userRouter = require("express").Router();
+const User = require("../model/user-model");
+userRouter.route("/:name");
 
-userRouter.route('/')
-userRouter.route('/:name')
+userRouter.get("/", async (req: any, res: any) => {
+  try {
+    const users = await User.find();
+    console.log(users)
+    res.send(users);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+module.exports = userRouter;

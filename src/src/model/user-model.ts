@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
 import * as bcrypt from "bcrypt";
+import connectMongoose from "../connect";
 
 interface IUser extends Document {
   name: string;
@@ -28,11 +29,15 @@ const userSchema: Schema<IUser> = new Schema(
   }
 );
 
-userSchema.pre<IUser>("save", async function (next: any) {
-  if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
+userSchema.pre<IUser>("save", async function (next) {
+  try {
+    if (this.isModified("password")) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
+    next();
+  } catch (error) {
+    next();
   }
-  next();
 });
 
 const User: Model<IUser> = model<IUser>("User", userSchema);
@@ -41,8 +46,18 @@ const guest = new User({
   name: "Guest",
   password: "123456",
   avatar:
-    "{{https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png}}",
+    "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
 });
-guest.save();
+
+function insertGuest() {
+  connectMongoose()
+
+  guest
+  .save()
+  .then(() => console.log("Guest user created"))
+  .catch((error) => console.error("Error creating guest user:", error));
+}
+
+insertGuest()
 
 export default User;
