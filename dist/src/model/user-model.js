@@ -77,7 +77,8 @@ async function selectUser(name, password, avatar) {
         Promise.reject({ status: 400, msg: "Invalid Request" });
     }
     if (!avatar) {
-        avatar = 'https://community.intellistrata.com.au/CommunityMobile/img/user.png';
+        avatar =
+            "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
     }
 }
 exports.selectUser = selectUser;
