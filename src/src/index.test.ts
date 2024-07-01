@@ -1,15 +1,15 @@
 import { describe } from "node:test";
-
 const Model = require("./index");
 const expect = require("chai").expect;
-const connectMongoose = require("./connect");
+import { disconnectMongoose } from "./connect.js";
+import connectMongoose from "./connect.js";
 
-beforeEach(async () => {
-  await connectMongoose();
+beforeEach(() => {
+  connectMongoose();
 });
 
-afterEach(async () => {
-  await disconnectMongoose();
+afterEach(() => {
+  disconnectMongoose();
 });
 
 describe("Testing Endpoints", () => {

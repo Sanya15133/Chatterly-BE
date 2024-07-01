@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.disconnectMongoose = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -22,5 +23,5 @@ function connectMongoose() {
 function disconnectMongoose() {
     mongoose_1.default.connection.close();
 }
-connectMongoose();
-exports.default = { connectMongoose, disconnectMongoose };
+exports.disconnectMongoose = disconnectMongoose;
+exports.default = connectMongoose;
