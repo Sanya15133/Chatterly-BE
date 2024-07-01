@@ -3,12 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Model = require("./index");
 const connect_js_1 = require("./connect.js");
 const connect_js_2 = __importDefault(require("./connect.js"));
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const app = require("../app"); // replace with path to your server file
+const app = require("../src/index.js"); // replace with path to your server file
 chai.use(chaiHttp);
 const expect = chai.expect;
 beforeEach(() => {
