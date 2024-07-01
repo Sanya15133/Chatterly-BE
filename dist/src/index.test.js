@@ -7,7 +7,7 @@ const connect_js_1 = require("./connect.js");
 const connect_js_2 = __importDefault(require("./connect.js"));
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const app = require("../src/index.js"); // replace with path to your server file
+const app = require("../src/index.js");
 chai.use(chaiHttp);
 const expect = chai.expect;
 beforeEach(() => {
