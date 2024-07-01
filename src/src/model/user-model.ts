@@ -36,4 +36,13 @@ userSchema.pre<IUser>("save", async function (next: any) {
 });
 
 const User: Model<IUser> = model<IUser>("User", userSchema);
+
+const guest = new User({
+  name: "Guest",
+  password: "123456",
+  avatar:
+    "{{https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png}}",
+});
+guest.save();
+
 export default User;
