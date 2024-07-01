@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findUsers = void 0;
+exports.selectUser = exports.findUsers = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
 const connect_1 = __importDefault(require("../connect"));
@@ -68,4 +68,17 @@ async function findUsers() {
     });
 }
 exports.findUsers = findUsers;
+async function selectUser(name, password, avatar) {
+    (0, connect_1.default)();
+    if (name.length < 5) {
+        Promise.reject({ status: 400, msg: "Invalid Request" });
+    }
+    if (password.length < 5) {
+        Promise.reject({ status: 400, msg: "Invalid Request" });
+    }
+    if (!avatar) {
+        avatar = 'https://community.intellistrata.com.au/CommunityMobile/img/user.png';
+    }
+}
+exports.selectUser = selectUser;
 exports.default = User;
