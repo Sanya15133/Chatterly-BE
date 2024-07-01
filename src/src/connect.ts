@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-dotenv.config(); 
+dotenv.config();
 
 const url: string | undefined = process.env.MONGODB_URI;
 
@@ -11,17 +11,18 @@ function connectMongoose() {
     process.exit(1);
   }
 
-  mongoose.connect(url, {
-  } as mongoose.ConnectOptions);
+  mongoose.connect(url, {} as mongoose.ConnectOptions);
 
   const db = mongoose.connection;
 
-  db.on('error', console.error.bind(console, 'Connection error:'));
-  db.once('open', () => {
+  db.on("error", console.error.bind(console, "Connection error:"));
+  db.once("open", () => {
     console.log("Connected to MongoDB using Mongoose!");
   });
 }
 
-connectMongoose();
+function disconnectMongoose() {
+  mongoose.connection.close();
+}
 
-export default connectMongoose;
+export default { connectMongoose, disconnectMongoose };
