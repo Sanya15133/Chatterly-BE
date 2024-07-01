@@ -73,7 +73,8 @@ export async function selectUser(
   }
 
   if (!avatar) {
-    avatar = 'https://community.intellistrata.com.au/CommunityMobile/img/user.png'
+    avatar =
+      "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
   }
 }
 
