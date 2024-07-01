@@ -1,9 +1,11 @@
-import { describe } from "node:test";
 const Model = require("./index");
-const expect = require("chai").expect;
 import { disconnectMongoose } from "./connect.js";
 import connectMongoose from "./connect.js";
-import { request } from "node:http";
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const app = require("../app"); // replace with path to your server file
+chai.use(chaiHttp);
+const expect = chai.expect;
 
 beforeEach(() => {
   connectMongoose();
@@ -14,11 +16,12 @@ afterEach(() => {
 });
 
 describe("Testing Endpoints", () => {
-  it("GET / users", (done) => {
-    request(Model)
+  it("GET /users", (done) => {
+    chai
+      .request(app)
       .get("/users")
       .end((err: any, res: any) => {
-        expect(res).to.have.status(200);
+        expect(res).to.have.status(100);
         // other assertions
         done();
       });

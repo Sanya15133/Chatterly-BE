@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm start",
     "build": "tsc build",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
