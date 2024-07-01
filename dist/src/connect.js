@@ -14,10 +14,13 @@ function connectMongoose() {
     }
     mongoose_1.default.connect(url, {});
     const db = mongoose_1.default.connection;
-    db.on('error', console.error.bind(console, 'Connection error:'));
-    db.once('open', () => {
+    db.on("error", console.error.bind(console, "Connection error:"));
+    db.once("open", () => {
         console.log("Connected to MongoDB using Mongoose!");
     });
 }
+function disconnectMongoose() {
+    mongoose_1.default.connection.close();
+}
 connectMongoose();
-exports.default = connectMongoose;
+exports.default = { connectMongoose, disconnectMongoose };

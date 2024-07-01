@@ -5,7 +5,7 @@ dotenv.config();
 
 const url: string | undefined = process.env.MONGODB_URI;
 
-function connectMongoose() {
+export function connectMongoose() {
   if (!url) {
     console.error("Missing MONGODB_URI environment variable");
     process.exit(1);
@@ -21,8 +21,8 @@ function connectMongoose() {
   });
 }
 
-function disconnectMongoose() {
+export function disconnectMongoose() {
   mongoose.connection.close();
 }
 
-export default { connectMongoose, disconnectMongoose };
+
