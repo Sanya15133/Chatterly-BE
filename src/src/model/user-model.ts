@@ -49,15 +49,12 @@ const guest = new User({
     "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
 });
 
-function insertGuest() {
-  connectMongoose()
-
-  guest
-  .save()
-  .then(() => console.log("Guest user created"))
-  .catch((error) => console.error("Error creating guest user:", error));
+export async function findUsers() {
+  connectMongoose();
+  return await User.find().then((users) => {
+    console.log(users);
+    return users;
+  });
 }
-
-insertGuest()
 
 export default User;
