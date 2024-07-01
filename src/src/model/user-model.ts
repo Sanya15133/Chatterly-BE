@@ -57,4 +57,24 @@ export async function findUsers() {
   });
 }
 
+export async function selectUser(
+  name: string,
+  password: string,
+  avatar: string
+) {
+  connectMongoose();
+
+  if (name.length < 5) {
+    Promise.reject({ status: 400, msg: "Invalid Request" });
+  }
+
+  if (password.length < 5) {
+    Promise.reject({ status: 400, msg: "Invalid Request" });
+  }
+
+  if (!avatar) {
+    avatar = 'https://community.intellistrata.com.au/CommunityMobile/img/user.png'
+  }
+}
+
 export default User;
