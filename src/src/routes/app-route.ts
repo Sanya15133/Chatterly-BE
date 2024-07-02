@@ -1,4 +1,5 @@
-const apiRouter = require('express').Router()
+const apiRouter = require("express").Router();
 
-apiRouter.get('/')
+apiRouter.get("/");
 
+module.exports = apiRouter;

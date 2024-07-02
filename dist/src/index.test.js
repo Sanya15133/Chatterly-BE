@@ -1,32 +1,14 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connect_js_1 = require("./connect.js");
 const connect_js_2 = __importDefault(require("./connect.js"));
-const chai_1 = __importStar(require("chai"));
+const chai_1 = __importDefault(require("chai"));
 const chai_http_1 = __importDefault(require("chai-http"));
 const app = require("./index.js");
+const expect = chai_1.default.expect;
 chai_1.default.use(chai_http_1.default);
 beforeEach(() => {
     (0, connect_js_2.default)();
@@ -41,8 +23,8 @@ describe("Testing Endpoints", () => {
             .get("/users")
             .end((err, res) => {
             if (err)
-                done(err);
-            (0, chai_1.expect)(res).to.have.status(200);
+                return done(err);
+            expect(res).to.have.status(200);
             done();
         });
     });
