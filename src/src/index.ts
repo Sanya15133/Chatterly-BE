@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "node:http";
 import connectMongoose from "./connect.js";
 import { Server } from "socket.io";
+const apiRouter = require("./apiRouter");
 
 const app = express();
 const server = createServer(app);
@@ -13,8 +14,8 @@ app.use(express.json());
 
 connectMongoose();
 
-app.get("/api/users", (req: any, res: any, next: any) => {
-  console.log(); // { name: 'new user', likes: ['coding'] }
+app.get("/api/users", apiRouter, (req: any, res: any, next: any) => {
+  console.log("hello"); // { name: 'new user', likes: ['coding'] }
   // logic for adding a new user
 });
 
