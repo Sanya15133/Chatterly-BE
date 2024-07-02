@@ -18,6 +18,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -43,16 +52,18 @@ const userSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-userSchema.pre("save", async function (next) {
-    try {
-        if (this.isModified("password")) {
-            this.password = await bcrypt.hash(this.password, 10);
+userSchema.pre("save", function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            if (this.isModified("password")) {
+                this.password = yield bcrypt.hash(this.password, 10);
+            }
+            next();
         }
-        next();
-    }
-    catch (error) {
-        next();
-    }
+        catch (error) {
+            next();
+        }
+    });
 });
 const User = (0, mongoose_1.model)("User", userSchema);
 const guest = new User({
@@ -60,26 +71,30 @@ const guest = new User({
     password: "123456",
     avatar: "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
 });
-async function findUsers() {
-    (0, connect_1.default)();
-    return await User.find().then((users) => {
-        console.log(users);
-        return users;
+function findUsers() {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, connect_1.default)();
+        return yield User.find().then((users) => {
+            console.log(users);
+            return users;
+        });
     });
 }
 exports.findUsers = findUsers;
-async function selectUser(name, password, avatar) {
-    (0, connect_1.default)();
-    if (name.length < 5) {
-        Promise.reject({ status: 400, msg: "Invalid Request" });
-    }
-    if (password.length < 5) {
-        Promise.reject({ status: 400, msg: "Invalid Request" });
-    }
-    if (!avatar) {
-        avatar =
-            "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
-    }
+function selectUser(name, password, avatar) {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, connect_1.default)();
+        if (name.length < 5) {
+            Promise.reject({ status: 400, msg: "Invalid Request" });
+        }
+        if (password.length < 5) {
+            Promise.reject({ status: 400, msg: "Invalid Request" });
+        }
+        if (!avatar) {
+            avatar =
+                "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
+        }
+    });
 }
 exports.selectUser = selectUser;
 exports.default = User;

@@ -3,4 +3,4 @@ const User = require("../model/user-model");
 import { getUsers } from "../controllers/user-controller";
 
 userRouter.get("/users", getUsers);
-module.exports = userRouter;
+export default userRouter;
