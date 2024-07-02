@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const url = process.env.MONGODB_URI;
+console.log(url);
 function connectMongoose() {
     if (!url) {
         console.error("Missing MONGODB_URI environment variable");

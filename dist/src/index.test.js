@@ -1,15 +1,33 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connect_js_1 = require("./connect.js");
 const connect_js_2 = __importDefault(require("./connect.js"));
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const app = require("../src/index.js");
-chai.use(chaiHttp);
-const expect = chai.expect;
+const chai_1 = __importStar(require("chai"));
+const chai_http_1 = __importDefault(require("chai-http"));
+const app = require("./index.js");
+chai_1.default.use(chai_http_1.default);
 beforeEach(() => {
     (0, connect_js_2.default)();
 });
@@ -18,12 +36,13 @@ afterEach(() => {
 });
 describe("Testing Endpoints", () => {
     it("GET /users", (done) => {
-        chai
+        chai_1.default
             .request(app)
             .get("/users")
             .end((err, res) => {
-            expect(res).to.have.status(100);
-            // other assertions
+            if (err)
+                done(err);
+            (0, chai_1.expect)(res).to.have.status(200);
             done();
         });
     });
