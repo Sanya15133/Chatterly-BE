@@ -1,3 +1,4 @@
 "use strict";
-const apiRouter = require('express').Router();
-apiRouter.get('/');
+const apiRouter = require("express").Router();
+apiRouter.get("/");
+module.exports = apiRouter;
