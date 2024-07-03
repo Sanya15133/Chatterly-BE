@@ -30,6 +30,15 @@ const chatSchema: Schema<IChat> = new Schema(
 );
 
 const Chat: Model<IChat> = model<IChat>("Chat", chatSchema);
+
+const newMessage = new Chat({
+  name: "Guest",
+  message: "Testing DB",
+  date: Date.now(),
+});
+
+newMessage.save();
+
 export default Chat;
 
 export async function findChats() {
