@@ -66,11 +66,12 @@ userSchema.pre("save", function (next) {
     });
 });
 const User = (0, mongoose_1.model)("User", userSchema);
-const guest = new User({
-    name: "Guest",
-    password: "123456",
-    avatar: "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
-});
+// const guest = new User({
+//   name: "Guest",
+//   password: "123456",
+//   avatar:
+//     "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
+// });
 function findUsers() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
