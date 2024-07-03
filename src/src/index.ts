@@ -2,6 +2,8 @@ import express from "express";
 import connectMongoose from "./connect.js";
 import apiRouter from "./routes/app-route";
 import userRouter from "./routes/user-routes";
+import chatRouter from "./routes/chat-routes";
+
 
 const app = express();
 
@@ -21,4 +23,8 @@ app.get("/users", userRouter, (req: any, res: any, next: any) => {
   // logic for adding a new user
 });
 
+app.get("/chats", chatRouter, (req: any, res: any, next: any) => {
+  console.log(); // { name: 'new user', likes: ['coding'] }
+  // logic for adding a new user
+});
 export default app;
