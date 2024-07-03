@@ -60,3 +60,14 @@ export async function findChatsByUser(name: string) {
     return chats;
   });
 }
+
+export async function addChat(name: string, message: string, date: string) {
+  connectMongoose();
+
+  if (message.length < 5) {
+    return Promise.reject({ status: 400, msg: "Message needs to be longer" });
+  }
+  return Chat.create({ name, message, date }).then((chat) => {
+    return chat;
+  });
+}
