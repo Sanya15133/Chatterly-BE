@@ -89,9 +89,7 @@ function findUser(name) {
             if (!user) {
                 return Promise.reject({ status: 404, msg: "Cannot find specified user" });
             }
-            else {
-                return user;
-            }
+            return user;
         });
     });
 }
