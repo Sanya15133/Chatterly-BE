@@ -34,6 +34,12 @@ const chatSchema = new mongoose_1.Schema({
     timestamps: true,
 });
 const Chat = (0, mongoose_1.model)("Chat", chatSchema);
+const newMessage = new Chat({
+    name: "Guest",
+    message: "Testing DB",
+    date: Date.now(),
+});
+newMessage.save();
 exports.default = Chat;
 function findChats() {
     return __awaiter(this, void 0, void 0, function* () {
