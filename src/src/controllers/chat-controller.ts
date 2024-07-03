@@ -1,8 +1,8 @@
-import { findChat } from "../model/chat-model";
+import { findChats } from "../model/chat-model";
 
 export function getChats(req: any, res: any, next: any) {
-  return findChat()
-    .then((chats) => {
+  return findChats()
+    .then((chats: any) => {
       res.status(200).send({ chats });
     })
     .catch((error) => {
