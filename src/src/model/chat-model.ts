@@ -31,15 +31,20 @@ const chatSchema: Schema<IChat> = new Schema(
 
 const Chat: Model<IChat> = model<IChat>("Chat", chatSchema);
 
+export default Chat;
+
 const newMessage = new Chat({
   name: "Guest",
   message: "Testing DB",
   date: Date.now(),
 });
 
-newMessage.save();
+async function testDB() {
+  connectMongoose();
+  newMessage.save();
+}
 
-export default Chat;
+testDB();
 
 export async function findChats() {
   connectMongoose();
