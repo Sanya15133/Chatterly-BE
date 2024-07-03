@@ -18,5 +18,4 @@ app.get("/users", userRouter);
 
 app.get("/chats", chatRouter);
 
-
 export default app;
