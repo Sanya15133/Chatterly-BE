@@ -71,18 +71,32 @@ export async function findUser(name: string) {
 export async function addUser(name: string, password: string, avatar: string) {
   connectMongoose();
 
+  const checkName = await findUser(name);
+  if (checkName) {
+    return Promise.reject({ status: 400, msg: "User already exists" });
+  }
+
   if (name.length < 5) {
-    Promise.reject({ status: 400, msg: "Invalid Request" });
+    return Promise.reject({
+      status: 400,
+      msg: "Name should be longer than 5 characters",
+    });
   }
 
   if (password.length < 5) {
-    Promise.reject({ status: 400, msg: "Invalid Request" });
+    return Promise.reject({
+      status: 400,
+      msg: "Password should be longer than 5 characters",
+    });
   }
 
   if (!avatar) {
     avatar =
       "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
   }
+  return User.create({ name, password, avatar }).then((user) => {
+    return user;
+  });
 }
 
 export default User;
