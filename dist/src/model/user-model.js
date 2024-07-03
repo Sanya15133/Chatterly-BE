@@ -98,16 +98,29 @@ exports.findUser = findUser;
 function addUser(name, password, avatar) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
+        const checkName = yield findUser(name);
+        if (checkName) {
+            return Promise.reject({ status: 400, msg: "User already exists" });
+        }
         if (name.length < 5) {
-            Promise.reject({ status: 400, msg: "Invalid Request" });
+            return Promise.reject({
+                status: 400,
+                msg: "Name should be longer than 5 characters",
+            });
         }
         if (password.length < 5) {
-            Promise.reject({ status: 400, msg: "Invalid Request" });
+            return Promise.reject({
+                status: 400,
+                msg: "Password should be longer than 5 characters",
+            });
         }
         if (!avatar) {
             avatar =
                 "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
         }
+        return User.create({ name, password, avatar }).then((user) => {
+            return user;
+        });
     });
 }
 exports.addUser = addUser;
