@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
 import connectMongoose from "../connect";
+import { disconnectMongoose } from "../connect";
 
 interface IChat extends Document {
   name: string;
@@ -33,18 +34,11 @@ const Chat: Model<IChat> = model<IChat>("Chat", chatSchema);
 
 export default Chat;
 
-const newMessage = new Chat({
-  name: "Guest",
-  message: "Testing DB",
-  date: Date.now(),
-});
-
-async function testDB() {
-  connectMongoose();
-  newMessage.save();
-}
-
-testDB();
+// const newMessage = new Chat({
+//   name: "Guest",
+//   message: "Testing DB",
+//   date: Date.now(),
+// });
 
 export async function findChats() {
   connectMongoose();

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.findChats = void 0;
 const mongoose_1 = require("mongoose");
 const connect_1 = __importDefault(require("../connect"));
+const connect_2 = require("../connect");
 const chatSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -43,7 +44,16 @@ const newMessage = new Chat({
 function testDB() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
-        newMessage.save();
+        try {
+            yield newMessage.save();
+            console.log("Message saved");
+        }
+        catch (error) {
+            console.error("Error saving message:", error);
+        }
+        finally {
+            (0, connect_2.disconnectMongoose)();
+        }
     });
 }
 testDB();

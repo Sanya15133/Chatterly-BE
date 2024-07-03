@@ -42,12 +42,12 @@ userSchema.pre<IUser>("save", async function (next) {
 
 const User: Model<IUser> = model<IUser>("User", userSchema);
 
-const guest = new User({
-  name: "Guest",
-  password: "123456",
-  avatar:
-    "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
-});
+// const guest = new User({
+//   name: "Guest",
+//   password: "123456",
+//   avatar:
+//     "https://www.screenfeed.fr/wp-content/uploads/2013/10/default-avatar.png",
+// });
 
 export async function findUsers() {
   connectMongoose();
