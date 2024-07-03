@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserByName = exports.getUsers = void 0;
+exports.insertUser = exports.getUserByName = exports.getUsers = void 0;
 const user_model_1 = require("../model/user-model");
 function getUsers(req, res, next) {
     return (0, user_model_1.findUsers)()
@@ -23,3 +23,14 @@ function getUserByName(req, res, next) {
     });
 }
 exports.getUserByName = getUserByName;
+function insertUser(req, res, next) {
+    const { name, password, avatar } = req.body;
+    return (0, user_model_1.addUser)(name, password, avatar)
+        .then((user) => {
+        res.status(201).send({ user });
+    })
+        .catch((error) => {
+        next(error);
+    });
+}
+exports.insertUser = insertUser;
