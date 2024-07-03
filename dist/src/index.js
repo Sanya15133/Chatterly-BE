@@ -12,16 +12,7 @@ const app = (0, express_1.default)();
 const url = process.env.MONGODB_URI;
 app.use(express_1.default.json());
 (0, connect_js_1.default)();
-app.get("/api", app_route_1.default, (req, res, next) => {
-    console.log(); // { name: 'new user', likes: ['coding'] }
-    // logic for adding a new user
-});
-app.get("/users", user_routes_1.default, (req, res, next) => {
-    console.log(); // { name: 'new user', likes: ['coding'] }
-    // logic for adding a new user
-});
-app.get("/chats", chat_routes_1.default, (req, res, next) => {
-    console.log(); // { name: 'new user', likes: ['coding'] }
-    // logic for adding a new user
-});
+app.get("/api", app_route_1.default);
+app.get("/users", user_routes_1.default);
+app.get("/chats", chat_routes_1.default);
 exports.default = app;
