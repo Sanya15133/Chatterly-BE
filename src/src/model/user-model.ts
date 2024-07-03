@@ -57,11 +57,18 @@ export async function findUsers() {
   });
 }
 
-export async function selectUser(
-  name: string,
-  password: string,
-  avatar: string
-) {
+export async function findUser(name: string) {
+  connectMongoose();
+  return await User.find({ name: name }).then((user) => {
+    if (!user) {
+      return Promise.reject({ status: 404, msg: "Cannot find specified user" });
+    } else {
+      return user;
+    }
+  });
+}
+
+export async function addUser(name: string, password: string, avatar: string) {
   connectMongoose();
 
   if (name.length < 5) {
