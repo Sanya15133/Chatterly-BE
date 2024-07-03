@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findChat = void 0;
+exports.findChats = void 0;
 const mongoose_1 = require("mongoose");
 const connect_1 = __importDefault(require("../connect"));
 const chatSchema = new mongoose_1.Schema({
@@ -35,7 +35,7 @@ const chatSchema = new mongoose_1.Schema({
 });
 const Chat = (0, mongoose_1.model)("Chat", chatSchema);
 exports.default = Chat;
-function findChat() {
+function findChats() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
         return yield Chat.find().then((chats) => {
@@ -44,4 +44,4 @@ function findChat() {
         });
     });
 }
-exports.findChat = findChat;
+exports.findChats = findChats;
