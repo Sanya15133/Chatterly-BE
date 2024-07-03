@@ -1,4 +1,4 @@
-import { findChats, findChatsByUser } from "../model/chat-model";
+import { addChat, findChats, findChatsByUser } from "../model/chat-model";
 
 export function getChats(req: any, res: any, next: any) {
   return findChats()
@@ -15,6 +15,17 @@ export function getChatsByUser(req: any, res: any, next: any) {
   return findChatsByUser(name)
     .then((chats) => {
       res.status(200).send({ chats });
+    })
+    .catch((error) => {
+      next(error);
+    });
+}
+
+export function insertChats(req: any, res: any, next: any) {
+  const { name, message, date } = req.body;
+  return addChat(name, message, date)
+    .then((chat) => {
+      res.status(201).send({ chat });
     })
     .catch((error) => {
       next(error);
