@@ -31,7 +31,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectUser = exports.findUsers = void 0;
+exports.addUser = exports.findUser = exports.findUsers = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
 const connect_1 = __importDefault(require("../connect"));
@@ -81,7 +81,21 @@ function findUsers() {
     });
 }
 exports.findUsers = findUsers;
-function selectUser(name, password, avatar) {
+function findUser(name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, connect_1.default)();
+        return yield User.find({ name: name }).then((user) => {
+            if (!user) {
+                return Promise.reject({ status: 404, msg: "Cannot find specified user" });
+            }
+            else {
+                return user;
+            }
+        });
+    });
+}
+exports.findUser = findUser;
+function addUser(name, password, avatar) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
         if (name.length < 5) {
@@ -96,5 +110,5 @@ function selectUser(name, password, avatar) {
         }
     });
 }
-exports.selectUser = selectUser;
+exports.addUser = addUser;
 exports.default = User;

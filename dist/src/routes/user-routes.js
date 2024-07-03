@@ -4,4 +4,5 @@ const userRouter = require("express").Router();
 const User = require("../model/user-model");
 const user_controller_1 = require("../controllers/user-controller");
 userRouter.get("/users", user_controller_1.getUsers);
+userRouter.get("/users/:name", user_controller_1.getUserByName);
 exports.default = userRouter;
