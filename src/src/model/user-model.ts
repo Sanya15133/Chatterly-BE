@@ -62,9 +62,8 @@ export async function findUser(name: string) {
   return await User.find({ name: name }).then((user) => {
     if (!user) {
       return Promise.reject({ status: 404, msg: "Cannot find specified user" });
-    } else {
-      return user;
     }
+    return user;
   });
 }
 

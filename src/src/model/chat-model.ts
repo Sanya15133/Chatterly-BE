@@ -47,3 +47,16 @@ export async function findChats() {
     return chats;
   });
 }
+
+export async function findChatsByUser(name: string) {
+  connectMongoose();
+  return await Chat.find({ name: name }).then((chats) => {
+    if (!chats) {
+      return Promise.reject({
+        status: 404,
+        msg: "Cannot find messages for this user",
+      });
+    }
+    return chats;
+  });
+}
