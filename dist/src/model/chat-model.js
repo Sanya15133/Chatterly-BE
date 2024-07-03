@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findChatsByUser = exports.findChats = void 0;
+exports.addChat = exports.findChatsByUser = exports.findChats = void 0;
 const mongoose_1 = require("mongoose");
 const connect_1 = __importDefault(require("../connect"));
 const chatSchema = new mongoose_1.Schema({
@@ -65,3 +65,15 @@ function findChatsByUser(name) {
     });
 }
 exports.findChatsByUser = findChatsByUser;
+function addChat(name, message, date) {
+    return __awaiter(this, void 0, void 0, function* () {
+        (0, connect_1.default)();
+        if (message.length < 5) {
+            return Promise.reject({ status: 400, msg: "Message needs to be longer" });
+        }
+        return Chat.create({ name, message, date }).then((chat) => {
+            return chat;
+        });
+    });
+}
+exports.addChat = addChat;
