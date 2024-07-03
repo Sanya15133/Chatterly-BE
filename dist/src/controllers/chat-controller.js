@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getChats = void 0;
+exports.getChatsByUser = exports.getChats = void 0;
 const chat_model_1 = require("../model/chat-model");
 function getChats(req, res, next) {
     return (0, chat_model_1.findChats)()
@@ -12,3 +12,14 @@ function getChats(req, res, next) {
     });
 }
 exports.getChats = getChats;
+function getChatsByUser(req, res, next) {
+    const { name } = req.params;
+    return (0, chat_model_1.findChatsByUser)(name)
+        .then((chats) => {
+        res.status(200).send({ chats });
+    })
+        .catch((error) => {
+        next(error);
+    });
+}
+exports.getChatsByUser = getChatsByUser;
