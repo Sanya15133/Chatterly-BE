@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 function connectMongoose() {
-  const url: string | undefined = process.env.MONGODB_URI;
+  const url = process.env.MONGODB_URI;
 
   if (!url) {
     console.error("Missing MONGODB_URI environment variable");
