@@ -1,8 +1,7 @@
-const chatRouter = require("express").Router();
-const Chat = require("../model/chat-model");
 import { getChats, getChatsByUser } from "../controllers/chat-controller";
 
-chatRouter.get("/chats", getChats);
-chatRouter.get("/chats/:name", getChatsByUser);
+const chatRouter = require("express").Router();
+chatRouter.get("/", getChats);
+chatRouter.get("/:name", getChatsByUser);
 
 export default chatRouter;
