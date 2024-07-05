@@ -17,12 +17,12 @@ const index_1 = __importDefault(require("../index"));
 const supertest_1 = __importDefault(require("supertest"));
 const connect_1 = __importDefault(require("../connect"));
 const connect_2 = require("../connect");
-beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, connect_1.default)();
-}));
-afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, connect_2.disconnectMongoose)();
-}));
+beforeEach(() => {
+    (0, connect_1.default)();
+});
+afterEach(() => {
+    (0, connect_2.disconnectMongoose)();
+});
 (0, globals_1.describe)("Chatterly B/E", () => {
     (0, globals_1.test)("can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users");

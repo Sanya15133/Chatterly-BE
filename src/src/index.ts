@@ -6,8 +6,8 @@ import chatRouter from "./routes/chat-routes";
 const app = express();
 app.use(express.json());
 
-app.use("/api", apiRouter);
-app.use("/api/users", userRouter);
-app.use("/api/chats", chatRouter);
+app.use("/", apiRouter);
+app.use("/users", userRouter);
+app.use("/chats", chatRouter);
 
 export default app;

@@ -4,12 +4,12 @@ import request from "supertest";
 import connectMongoose from "../connect";
 import { disconnectMongoose } from "../connect";
 
-beforeEach(async () => {
-  await connectMongoose();
+beforeEach(() => {
+  connectMongoose();
 });
 
-afterEach(async () => {
-  await disconnectMongoose();
+afterEach(() => {
+  disconnectMongoose();
 });
 
 describe("Chatterly B/E", () => {
