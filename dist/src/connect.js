@@ -7,19 +7,13 @@ exports.disconnectMongoose = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const url = process.env.MONGODB_URI;
-console.log(url);
 function connectMongoose() {
+    const url = process.env.MONGODB_URI;
     if (!url) {
         console.error("Missing MONGODB_URI environment variable");
         process.exit(1);
     }
     mongoose_1.default.connect(url, {});
-    const db = mongoose_1.default.connection;
-    db.on("error", console.error.bind(console, "Connection error:"));
-    db.once("open", () => {
-        console.log("Connected to MongoDB using Mongoose!");
-    });
 }
 function disconnectMongoose() {
     mongoose_1.default.connection.close();

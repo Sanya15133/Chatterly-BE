@@ -14,6 +14,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@types/bcrypt": "^5.0.2",
     "@types/chai": "^4.3.16",
     "@types/chai-http": "^4.2.0",
@@ -22,6 +24,7 @@
     "@types/mocha": "^10.0.7",
     "@types/node": "^20.14.9",
     "@types/supertest": "^6.0.2",
+    "babel-jest": "^29.7.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
