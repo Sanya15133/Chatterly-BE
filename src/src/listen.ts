@@ -1,7 +1,7 @@
 import express from "express";
 const app = express();
 const WebSocket = require("ws");
-const wss = new WebSocket.Server({ port: 3000 });
+const wss = new WebSocket.Server({ port: 3001 });
 
 const PORT = 3000;
 
