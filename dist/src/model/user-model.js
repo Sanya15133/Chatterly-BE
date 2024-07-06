@@ -89,7 +89,6 @@ function findUser(name) {
                     msg: "Cannot find specified user",
                 });
             }
-            console.log(user);
             return user;
         });
     });

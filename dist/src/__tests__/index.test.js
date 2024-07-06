@@ -31,8 +31,13 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users/cat").expect(404);
         (0, globals_1.expect)(response.body.msg).toBe("Cannot find specified user");
     }));
-    it("can find users by name", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("can find users by name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users/Guest").expect(200);
         (0, globals_1.expect)(response.body.user).toMatchObject({ name: "Guest" });
+    }));
+    it("db has users stored in it", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).get("/users").expect(200);
+        console.log(response.body.users.length);
+        (0, globals_1.expect)(response.body.users.length).toBeGreaterThan(0);
     }));
 });

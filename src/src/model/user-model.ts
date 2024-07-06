@@ -66,7 +66,6 @@ export async function findUser(name: string) {
         msg: "Cannot find specified user",
       });
     }
-    console.log(user);
     return user;
   });
 }

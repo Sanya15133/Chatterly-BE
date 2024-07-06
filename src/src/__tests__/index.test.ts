@@ -20,8 +20,12 @@ describe("Chatterly B/E", () => {
     const response = await request(app).get("/users/cat").expect(404);
     expect(response.body.msg).toBe("Cannot find specified user");
   });
-  it("can find users by name", async () => {
+  it("can find users by name if they exist on db", async () => {
     const response = await request(app).get("/users/Guest").expect(200);
     expect(response.body.user).toMatchObject({ name: "Guest" });
+  });
+  it("checks db is not empty", async () => {
+    const response = await request(app).get("/users").expect(200);
+    expect(response.body.users.length).toBeGreaterThan(0);
   });
 });
