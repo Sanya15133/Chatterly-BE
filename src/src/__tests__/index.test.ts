@@ -12,8 +12,8 @@ afterEach(async () => {
   await disconnectMongoose();
 });
 
-describe("Chatterly B/E", () => {
-  it("can connect to users endpoint", async () => {
+describe("GET /users", () => {
+  it("users can connect to users endpoint", async () => {
     await request(app).get("/users").expect(200);
   });
   it("will return 404 if user does not exist", async () => {
