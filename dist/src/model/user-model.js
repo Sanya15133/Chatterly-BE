@@ -97,23 +97,29 @@ exports.findUser = findUser;
 function addUser(name, password, avatar) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
+        if (!name) {
+            return Promise.reject({
+                status: 400,
+                msg: "Missing name parameter",
+            });
+        }
+        if (name.length < 3) {
+            return Promise.reject({
+                status: 400,
+                msg: "Name should be longer than 3 characters",
+            });
+        }
+        if (password.length < 5) {
+            return Promise.reject({
+                status: 400,
+                msg: "Password should be longer than 5 characters",
+            });
+        }
         let checkName;
         return yield User.find({ name: name }).then((user) => {
             checkName = user;
-            if (checkName) {
+            if (checkName.length !== 0) {
                 return Promise.reject({ status: 400, msg: "User already exists" });
-            }
-            if (name.length < 5) {
-                return Promise.reject({
-                    status: 400,
-                    msg: "Name should be longer than 5 characters",
-                });
-            }
-            if (password.length < 5) {
-                return Promise.reject({
-                    status: 400,
-                    msg: "Password should be longer than 5 characters",
-                });
             }
             if (!avatar) {
                 avatar =
@@ -123,7 +129,6 @@ function addUser(name, password, avatar) {
                 return user;
             });
         });
-        (0, connect_1.disconnectMongoose)();
     });
 }
 exports.addUser = addUser;

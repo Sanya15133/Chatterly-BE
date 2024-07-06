@@ -51,4 +51,28 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("User already exists");
     }));
+    // it("POST /users will post new user if doesn't exist", async () => {
+    //   const newUser2 = {
+    //     name: "Anon",
+    //     password: "123456",
+    //     avatar:
+    //       "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    //   };
+    //   const response = await request(app)
+    //     .post("/users")
+    //     .send(newUser2)
+    //     .expect(201);
+    //   expect(response.body.user).toMatchObject({ name: "Anon" });
+    // });
+    it("POST /users will not post new user if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newUser2 = {
+            password: "123456",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users")
+            .send(newUser2)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
+    }));
 });
