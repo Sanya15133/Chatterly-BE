@@ -86,4 +86,19 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Password is required");
     }));
+    // it("POST /users will use default avatar if not provided", async () => {
+    //   const newUser2 = {
+    //     name: "Bob",
+    //     password: "123456",
+    //   };
+    //   const response = await request(app)
+    //     .post("/users")
+    //     .send(newUser2)
+    //     .expect(201);
+    //   expect(response.body.user).toMatchObject({
+    //     name: "Bob",
+    //     avatar:
+    //       "https://community.intellistrata.com.au/CommunityMobile/img/user.png",
+    //   });
+    // });
 });
