@@ -15,7 +15,9 @@ exports.getUsers = getUsers;
 function getUserByName(req, res, next) {
     const { name } = req.params;
     return (0, user_model_1.findUser)(name)
-        .then((user) => {
+        .then((users) => {
+        const user = users[0];
+        console.log({ user });
         res.status(200).send({ user });
     })
         .catch((error) => {

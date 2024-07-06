@@ -27,14 +27,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addUser = exports.findUser = exports.findUsers = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
-const connect_1 = __importDefault(require("../connect"));
+const connect_1 = __importStar(require("../connect"));
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -83,11 +80,16 @@ function findUsers() {
 exports.findUsers = findUsers;
 function findUser(name) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, connect_1.default)();
-        return yield User.find({ name: name }).then((user) => {
+        yield (0, connect_1.default)();
+        return User.find({ name: name }).then((user) => {
+            (0, connect_1.disconnectMongoose)();
             if (user.length === 0) {
-                return Promise.reject({ status: 404, msg: "Cannot find specified user" });
+                return Promise.reject({
+                    status: 404,
+                    msg: "Cannot find specified user",
+                });
             }
+            console.log(user);
             return user;
         });
     });
@@ -96,29 +98,31 @@ exports.findUser = findUser;
 function addUser(name, password, avatar) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
-        const checkName = yield findUser(name);
-        if (checkName) {
-            return Promise.reject({ status: 400, msg: "User already exists" });
-        }
-        if (name.length < 5) {
-            return Promise.reject({
-                status: 400,
-                msg: "Name should be longer than 5 characters",
+        const checkName = yield findUser(name).then((user) => {
+            if (checkName) {
+                return Promise.reject({ status: 400, msg: "User already exists" });
+            }
+            if (name.length < 5) {
+                return Promise.reject({
+                    status: 400,
+                    msg: "Name should be longer than 5 characters",
+                });
+            }
+            if (password.length < 5) {
+                return Promise.reject({
+                    status: 400,
+                    msg: "Password should be longer than 5 characters",
+                });
+            }
+            if (!avatar) {
+                avatar =
+                    "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
+            }
+            return User.create({ name, password, avatar }).then((user) => {
+                return user;
             });
-        }
-        if (password.length < 5) {
-            return Promise.reject({
-                status: 400,
-                msg: "Password should be longer than 5 characters",
-            });
-        }
-        if (!avatar) {
-            avatar =
-                "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
-        }
-        return User.create({ name, password, avatar }).then((user) => {
-            return user;
         });
+        (0, connect_1.disconnectMongoose)();
     });
 }
 exports.addUser = addUser;

@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
 import * as bcrypt from "bcrypt";
-import connectMongoose from "../connect";
+import connectMongoose, { disconnectMongoose } from "../connect";
 
 interface IUser extends Document {
   name: string;
@@ -57,11 +57,16 @@ export async function findUsers() {
 }
 
 export async function findUser(name: string) {
-  connectMongoose();
-  return await User.find({ name: name }).then((user) => {
+  await connectMongoose();
+  return User.find({ name: name }).then((user) => {
+    disconnectMongoose();
     if (user.length === 0) {
-      return Promise.reject({ status: 404, msg: "Cannot find specified user" });
+      return Promise.reject({
+        status: 404,
+        msg: "Cannot find specified user",
+      });
     }
+    console.log(user);
     return user;
   });
 }
@@ -69,32 +74,34 @@ export async function findUser(name: string) {
 export async function addUser(name: string, password: string, avatar: string) {
   connectMongoose();
 
-  const checkName = await findUser(name);
-  if (checkName) {
-    return Promise.reject({ status: 400, msg: "User already exists" });
-  }
+  const checkName = await findUser(name).then((user) => {
+    if (checkName) {
+      return Promise.reject({ status: 400, msg: "User already exists" });
+    }
 
-  if (name.length < 5) {
-    return Promise.reject({
-      status: 400,
-      msg: "Name should be longer than 5 characters",
+    if (name.length < 5) {
+      return Promise.reject({
+        status: 400,
+        msg: "Name should be longer than 5 characters",
+      });
+    }
+
+    if (password.length < 5) {
+      return Promise.reject({
+        status: 400,
+        msg: "Password should be longer than 5 characters",
+      });
+    }
+
+    if (!avatar) {
+      avatar =
+        "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
+    }
+    return User.create({ name, password, avatar }).then((user) => {
+      return user;
     });
-  }
-
-  if (password.length < 5) {
-    return Promise.reject({
-      status: 400,
-      msg: "Password should be longer than 5 characters",
-    });
-  }
-
-  if (!avatar) {
-    avatar =
-      "https://community.intellistrata.com.au/CommunityMobile/img/user.png";
-  }
-  return User.create({ name, password, avatar }).then((user) => {
-    return user;
   });
+  disconnectMongoose();
 }
 
 export default User;
