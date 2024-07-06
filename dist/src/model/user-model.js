@@ -85,7 +85,7 @@ function findUser(name) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
         return yield User.find({ name: name }).then((user) => {
-            if (!user) {
+            if (user.length === 0) {
                 return Promise.reject({ status: 404, msg: "Cannot find specified user" });
             }
             return user;

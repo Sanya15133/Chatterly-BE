@@ -13,12 +13,10 @@ afterEach(() => {
 });
 
 describe("Chatterly B/E", () => {
-  it("can connect to users endpoint", async () => {
-    const response = await request(app).get("/users");
-    expect(response.status).toBe(200);
+  it("can connect to users endpoint", () => {
+    return request(app).get("/users").expect(200);
   });
-  it("can find users by name", async () => {
-    const response = await request(app).get("/users/cat");
-    expect(response.status).toBe(200);
+  it("can find users by name", () => {
+    return request(app).get("/users/cat").expect(404);
   });
 });

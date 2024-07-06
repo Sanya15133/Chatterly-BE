@@ -59,7 +59,7 @@ export async function findUsers() {
 export async function findUser(name: string) {
   connectMongoose();
   return await User.find({ name: name }).then((user) => {
-    if (!user) {
+    if (user.length === 0) {
       return Promise.reject({ status: 404, msg: "Cannot find specified user" });
     }
     return user;
