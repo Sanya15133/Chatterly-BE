@@ -76,7 +76,6 @@ function findUsers() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
         return yield User.find().then((users) => {
-            console.log(users);
             return users;
         });
     });
