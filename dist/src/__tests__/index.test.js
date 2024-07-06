@@ -39,4 +39,20 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users").expect(200);
         (0, globals_1.expect)(response.body.users.length).toBeGreaterThan(0);
     }));
+    it("POST /users will post user", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newUser = {
+            name: "Sanya",
+            password: "123456",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users")
+            .send(newUser)
+            .expect(201);
+        (0, globals_1.expect)(response.body.user).toMatchObject({
+            name: "Sanya",
+            password: "123456",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        });
+    }));
 });

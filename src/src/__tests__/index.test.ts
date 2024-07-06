@@ -28,4 +28,22 @@ describe("GET /users", () => {
     const response = await request(app).get("/users").expect(200);
     expect(response.body.users.length).toBeGreaterThan(0);
   });
+  it("POST /users will post user", async () => {
+    const newUser = {
+      name: "Sanya",
+      password: "123456",
+      avatar:
+        "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    };
+    const response = await request(app)
+      .post("/users")
+      .send(newUser)
+      .expect(201);
+    expect(response.body.user).toMatchObject({
+      name: "Sanya",
+      password: "123456",
+      avatar:
+        "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    });
+  });
 });
