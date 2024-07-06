@@ -52,7 +52,6 @@ const User: Model<IUser> = model<IUser>("User", userSchema);
 export async function findUsers() {
   connectMongoose();
   return await User.find().then((users) => {
-    console.log(users);
     return users;
   });
 }
