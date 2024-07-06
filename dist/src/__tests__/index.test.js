@@ -23,8 +23,8 @@ beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
 afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connect_2.disconnectMongoose)();
 }));
-(0, globals_1.describe)("Chatterly B/E", () => {
-    it("can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
+(0, globals_1.describe)("GET /users", () => {
+    it("users can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         yield (0, supertest_1.default)(index_1.default).get("/users").expect(200);
     }));
     it("will return 404 if user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
