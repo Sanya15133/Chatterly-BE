@@ -28,6 +28,7 @@ function insertUser(req, res, next) {
     const { name, password, avatar } = req.body;
     return (0, user_model_1.addUser)(name, password, avatar)
         .then((user) => {
+        console.log({ user });
         res.status(201).send({ user });
     })
         .catch((error) => {

@@ -97,7 +97,9 @@ exports.findUser = findUser;
 function addUser(name, password, avatar) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
-        const checkName = yield findUser(name).then((user) => {
+        let checkName;
+        return yield User.find({ name: name }).then((user) => {
+            checkName = user;
             if (checkName) {
                 return Promise.reject({ status: 400, msg: "User already exists" });
             }

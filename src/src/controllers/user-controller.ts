@@ -26,6 +26,7 @@ export function insertUser(req: any, res: any, next: any) {
   const { name, password, avatar } = req.body;
   return addUser(name, password, avatar)
     .then((user) => {
+      console.log({ user });
       res.status(201).send({ user });
     })
     .catch((error) => {

@@ -73,7 +73,9 @@ export async function findUser(name: string) {
 export async function addUser(name: string, password: string, avatar: string) {
   connectMongoose();
 
-  const checkName = await findUser(name).then((user) => {
+  let checkName: any;
+  return await User.find({ name: name }).then((user) => {
+    checkName = user;
     if (checkName) {
       return Promise.reject({ status: 400, msg: "User already exists" });
     }
