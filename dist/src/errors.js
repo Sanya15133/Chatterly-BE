@@ -7,3 +7,11 @@ exports.handleCustomErrors = (err, req, res, next) => {
         next(err);
     }
 };
+exports.handle404Errors = (err, req, res, next) => {
+    if (err.status === 404) {
+        res.status(404).send({ msg: "Not Found" });
+    }
+    else {
+        next(err);
+    }
+};
