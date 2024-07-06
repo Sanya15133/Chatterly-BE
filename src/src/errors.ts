@@ -21,3 +21,11 @@ exports.handle400Errors = (err: any, req: any, res: any, next: any) => {
     next(err);
   }
 };
+
+exports.handle500Errors = (err: any, req: any, res: any, next: any) => {
+  if (err.status === 500) {
+    res.status(500).send({ msg: "Internal Server Error" });
+  } else {
+    next(err);
+  }
+};
