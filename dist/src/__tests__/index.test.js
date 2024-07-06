@@ -75,4 +75,15 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
     }));
+    it("POST /users will not post new user if missing password", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newUser2 = {
+            name: "123456",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users")
+            .send(newUser2)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Password is required");
+    }));
 });

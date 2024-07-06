@@ -103,6 +103,12 @@ function addUser(name, password, avatar) {
                 msg: "Missing name parameter",
             });
         }
+        if (!password) {
+            return Promise.reject({
+                status: 400,
+                msg: "Password is required",
+            });
+        }
         if (name.length < 3) {
             return Promise.reject({
                 status: 400,

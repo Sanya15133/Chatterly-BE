@@ -66,4 +66,16 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("Missing name parameter");
   });
+  it("POST /users will not post new user if missing password", async () => {
+    const newUser2 = {
+      name: "123456",
+      avatar:
+        "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    };
+    const response = await request(app)
+      .post("/users")
+      .send(newUser2)
+      .expect(400);
+    expect(response.body.msg).toBe("Password is required");
+  });
 });

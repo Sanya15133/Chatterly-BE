@@ -80,6 +80,13 @@ export async function addUser(name: string, password: string, avatar: string) {
     });
   }
 
+  if (!password) {
+    return Promise.reject({
+      status: 400,
+      msg: "Password is required",
+    });
+  }
+
   if (name.length < 3) {
     return Promise.reject({
       status: 400,
