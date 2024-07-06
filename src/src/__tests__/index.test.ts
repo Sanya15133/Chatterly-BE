@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect } from "@jest/globals";
 import app from "../index";
 import request from "supertest";
 import connectMongoose from "../connect";
@@ -13,8 +13,12 @@ afterEach(() => {
 });
 
 describe("Chatterly B/E", () => {
-  test("can connect to users endpoint", async () => {
+  it("can connect to users endpoint", async () => {
     const response = await request(app).get("/users");
+    expect(response.status).toBe(200);
+  });
+  it("can find users by name", async () => {
+    const response = await request(app).get("/users/cat");
     expect(response.status).toBe(200);
   });
 });

@@ -24,8 +24,12 @@ afterEach(() => {
     (0, connect_2.disconnectMongoose)();
 });
 (0, globals_1.describe)("Chatterly B/E", () => {
-    (0, globals_1.test)("can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users");
+        (0, globals_1.expect)(response.status).toBe(200);
+    }));
+    it("can find users by name", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).get("/users/cat");
         (0, globals_1.expect)(response.status).toBe(200);
     }));
 });
