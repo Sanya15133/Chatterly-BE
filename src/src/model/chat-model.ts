@@ -43,7 +43,6 @@ export default Chat;
 export async function findChats() {
   connectMongoose();
   return await Chat.find().then((chats) => {
-    console.log(chats);
     return chats;
   });
 }
@@ -63,6 +62,13 @@ export async function findChatsByUser(name: string) {
 
 export async function addChat(name: string, message: string, date: string) {
   connectMongoose();
+
+  if (!name) {
+    return Promise.reject({
+      status: 400,
+      msg: "Missing name parameter",
+    });
+  }
 
   if (message.length < 5) {
     return Promise.reject({ status: 400, msg: "Message needs to be longer" });
