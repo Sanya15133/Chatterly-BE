@@ -187,4 +187,56 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Message needs to be longer");
     }));
+    it("POST /users/login will throw error if not given name", () => __awaiter(void 0, void 0, void 0, function* () {
+        const logIn = {
+            password: "123",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users/login")
+            .send(logIn)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
+    }));
+    it("POST /users/login will throw error if not given password", () => __awaiter(void 0, void 0, void 0, function* () {
+        const logIn = {
+            name: "123",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users/login")
+            .send(logIn)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Password is required");
+    }));
+    it("POST /users/login will throw error if not given valid user", () => __awaiter(void 0, void 0, void 0, function* () {
+        const logIn = {
+            name: "Ned Stark",
+            password: "Winterfell",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users/login")
+            .send(logIn)
+            .expect(404);
+        (0, globals_1.expect)(response.body.msg).toBe("User does not exist");
+    }));
+    it("POST /users/login will login if given valid user", () => __awaiter(void 0, void 0, void 0, function* () {
+        const logIn = {
+            name: "Sanya",
+            password: "123456",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users/login")
+            .send(logIn)
+            .expect(200);
+    }));
+    it("POST /users/login will throw error if given valid user but invalid password", () => __awaiter(void 0, void 0, void 0, function* () {
+        const logIn = {
+            name: "Sanya",
+            password: "67890",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users/login")
+            .send(logIn)
+            .expect(401);
+        (0, globals_1.expect)(response.body.msg).toBe("Invalid password");
+    }));
 });

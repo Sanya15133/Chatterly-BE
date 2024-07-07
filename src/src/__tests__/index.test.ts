@@ -185,4 +185,56 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("Message needs to be longer");
   });
+  it("POST /users/login will throw error if not given name", async () => {
+    const logIn = {
+      password: "123",
+    };
+    const response = await request(app)
+      .post("/users/login")
+      .send(logIn)
+      .expect(400);
+    expect(response.body.msg).toBe("Missing name parameter");
+  });
+  it("POST /users/login will throw error if not given password", async () => {
+    const logIn = {
+      name: "123",
+    };
+    const response = await request(app)
+      .post("/users/login")
+      .send(logIn)
+      .expect(400);
+    expect(response.body.msg).toBe("Password is required");
+  });
+  it("POST /users/login will throw error if not given valid user", async () => {
+    const logIn = {
+      name: "Ned Stark",
+      password: "Winterfell",
+    };
+    const response = await request(app)
+      .post("/users/login")
+      .send(logIn)
+      .expect(404);
+    expect(response.body.msg).toBe("User does not exist");
+  });
+  it("POST /users/login will login if given valid user", async () => {
+    const logIn = {
+      name: "Sanya",
+      password: "123456",
+    };
+    const response = await request(app)
+      .post("/users/login")
+      .send(logIn)
+      .expect(200);
+  });
+  it("POST /users/login will throw error if given valid user but invalid password", async () => {
+    const logIn = {
+      name: "Sanya",
+      password: "67890",
+    };
+    const response = await request(app)
+      .post("/users/login")
+      .send(logIn)
+      .expect(401);
+    expect(response.body.msg).toBe("Invalid password");
+  });
 });

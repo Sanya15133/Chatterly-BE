@@ -45,7 +45,6 @@ export function loginUser(req: any, res: any, next: any) {
 
   return checkLoginUser(name, password)
     .then((user) => {
-      console.log({ user });
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
         expiresIn: "1h",
       });
