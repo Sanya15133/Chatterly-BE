@@ -40,7 +40,6 @@ function loginUser(req, res, next) {
     const { name, password } = req.body;
     return (0, user_model_1.checkLoginUser)(name, password)
         .then((user) => {
-        console.log({ user });
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
             expiresIn: "1h",
         });
