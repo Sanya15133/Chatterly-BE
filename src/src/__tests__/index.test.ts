@@ -137,8 +137,53 @@ describe("GET /users", () => {
       expect(typeof chat.date).toBe("string");
     });
   });
-  it.only("GET /chats checks db is not empty", async () => {
+  it("GET /chats checks db is not empty", async () => {
     const response = await request(app).get("/chats").expect(200);
     expect(response.body.chats.length).toBeGreaterThan(0);
+  });
+  it("POST /chats will post chats will all required parameters", async () => {
+    const newChat = {
+      name: "Sanya",
+      message: "Hello World",
+    };
+    const response = await request(app)
+      .post("/chats")
+      .send(newChat)
+      .expect(201);
+    expect(response.body.chat).toMatchObject({
+      name: "Sanya",
+      message: "Hello World",
+    });
+  });
+  it("POST /chats will not post new chat if missing name", async () => {
+    const newChat = {
+      message: "123456",
+    };
+    const response = await request(app)
+      .post("/chats")
+      .send(newChat)
+      .expect(400);
+    expect(response.body.msg).toBe("Missing name parameter");
+  });
+  it("POST /chats will not post new chat if missing message", async () => {
+    const newChat = {
+      name: "123456",
+    };
+    const response = await request(app)
+      .post("/chats")
+      .send(newChat)
+      .expect(400);
+    expect(response.body.msg).toBe("Missing message parameter");
+  });
+  it.only("POST /chats will throw error if message is too short", async () => {
+    const newChat = {
+      name: "Peaches",
+      message: "123",
+    };
+    const response = await request(app)
+      .post("/chats")
+      .send(newChat)
+      .expect(400);
+    expect(response.body.msg).toBe("Message needs to be longer");
   });
 });

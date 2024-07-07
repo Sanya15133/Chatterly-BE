@@ -139,8 +139,65 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             (0, globals_1.expect)(typeof chat.date).toBe("string");
         });
     }));
-    it.only("GET /chats checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("GET /chats checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/chats").expect(200);
         (0, globals_1.expect)(response.body.chats.length).toBeGreaterThan(0);
+    }));
+    it("POST /chats will post chats will all required parameters", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newChat = {
+            name: "Sanya",
+            message: "Hello World",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/chats")
+            .send(newChat)
+            .expect(201);
+        (0, globals_1.expect)(response.body.chat).toMatchObject({
+            name: "Sanya",
+            message: "Hello World",
+        });
+    }));
+    it("POST /chats will not post new chat if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newChat = {
+            message: "123456",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/chats")
+            .send(newChat)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
+    }));
+    it("POST /chats will not post new chat if missing message", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newChat = {
+            name: "123456",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/chats")
+            .send(newChat)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Missing message parameter");
+    }));
+    it.only("POST /chats will throw error if message is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newChat = {
+            name: "Peaches",
+            message: "123",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/chats")
+            .send(newChat)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Message needs to be longer");
+    }));
+    it("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newUser2 = {
+            name: "Oh",
+            password: "123444",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users")
+            .send(newUser2)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Name should be longer than 3 characters");
     }));
 });

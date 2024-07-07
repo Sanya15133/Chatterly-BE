@@ -27,9 +27,11 @@ export function insertChats(req: any, res: any, next: any) {
   const { name, message, date } = req.body;
   return addChat(name, message, date)
     .then((chat) => {
+      console.log({ chat });
       res.status(201).send({ chat });
     })
     .catch((error) => {
+      console.log({ error });
       next(error);
     });
 }

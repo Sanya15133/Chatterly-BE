@@ -74,10 +74,17 @@ function addChat(name, message, date) {
                 msg: "Missing name parameter",
             });
         }
+        if (!message) {
+            return Promise.reject({
+                status: 400,
+                msg: "Missing message parameter",
+            });
+        }
         if (message.length < 5) {
             return Promise.reject({ status: 400, msg: "Message needs to be longer" });
         }
         return Chat.create({ name, message, date }).then((chat) => {
+            console.log({ chat });
             return chat;
         });
     });
