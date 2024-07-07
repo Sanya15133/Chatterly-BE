@@ -1,12 +1,4 @@
 "use strict";
-exports.handleCustomErrors = (err, req, res, next) => {
-    if (err.status && err.msg) {
-        res.status(err.status).send({ msg: err.msg });
-    }
-    else {
-        next(err);
-    }
-};
 exports.handle404Errors = (err, req, res, next) => {
     if (err.status === 404) {
         res.status(404).send({ msg: "Not Found" });
@@ -31,8 +23,11 @@ exports.handle500Errors = (err, req, res, next) => {
         next(err);
     }
 };
-exports.handleAllErrors = (err, req, res, next) => {
-    res
-        .status(err.status || 500)
-        .send({ msg: err.msg || "Internal Server Error" });
+exports.handleCustomErrors = (err, req, res, next) => {
+    if (err.status && err.msg) {
+        res.status(err.status).send({ msg: err.msg });
+    }
+    else {
+        next(err);
+    }
 };
