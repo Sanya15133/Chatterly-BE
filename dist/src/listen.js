@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const WebSocket = require("ws");
-const wss = new WebSocket.Server({ port: 3001 });
 const PORT = 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`APP is running on ${PORT}`);
 });
+const wss = new WebSocket.Server({ httpServer: server });
 wss.on("connection", () => (ws) => {
     console.log("Client connected");
     ws.on("message", () => (message) => {
