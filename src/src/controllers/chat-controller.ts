@@ -14,9 +14,11 @@ export function getChatsByUser(req: any, res: any, next: any) {
   const { name } = req.params;
   return findChatsByUser(name)
     .then((chats) => {
+      console.log({ chats });
       res.status(200).send({ chats });
     })
     .catch((error) => {
+      console.log({ error });
       next(error);
     });
 }

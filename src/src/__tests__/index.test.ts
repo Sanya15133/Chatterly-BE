@@ -108,7 +108,7 @@ describe("GET /users", () => {
       "Password should be longer than 5 characters"
     );
   });
-  it.only("POST /users will throw error if name is too short", async () => {
+  it("POST /users will throw error if name is too short", async () => {
     const newUser2 = {
       name: "Oh",
       password: "123444",
@@ -120,5 +120,25 @@ describe("GET /users", () => {
       .send(newUser2)
       .expect(400);
     expect(response.body.msg).toBe("Name should be longer than 3 characters");
+  });
+  it("GET /chats can connect to chats endpoint", async () => {
+    await request(app).get("/chats").expect(200);
+  });
+  it("GET /chats will return 404 if chat by non-existent user does not exist", async () => {
+    const response = await request(app).get("/chats/cat").expect(404);
+    expect(response.body.msg).toBe("Cannot find messages for this user");
+  });
+  it("GET /chats can find chats by users name if they exist on db", async () => {
+    const response = await request(app).get("/chats/Guest").expect(200);
+    console.log(response.body.chats);
+    response.body.chats.forEach((chat: any) => {
+      expect(chat.name).toBe("Guest");
+      expect(typeof chat.message).toBe("string");
+      expect(typeof chat.date).toBe("string");
+    });
+  });
+  it.only("GET /chats checks db is not empty", async () => {
+    const response = await request(app).get("/chats").expect(200);
+    expect(response.body.chats.length).toBeGreaterThan(0);
   });
 });

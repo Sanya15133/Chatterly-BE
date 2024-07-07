@@ -50,12 +50,13 @@ export async function findChats() {
 export async function findChatsByUser(name: string) {
   connectMongoose();
   return await Chat.find({ name: name }).then((chats) => {
-    if (!chats) {
+    if (chats.length === 0) {
       return Promise.reject({
         status: 404,
         msg: "Cannot find messages for this user",
       });
     }
+    console.log({ chats });
     return chats;
   });
 }

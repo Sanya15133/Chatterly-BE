@@ -16,9 +16,11 @@ function getChatsByUser(req, res, next) {
     const { name } = req.params;
     return (0, chat_model_1.findChatsByUser)(name)
         .then((chats) => {
+        console.log({ chats });
         res.status(200).send({ chats });
     })
         .catch((error) => {
+        console.log({ error });
         next(error);
     });
 }

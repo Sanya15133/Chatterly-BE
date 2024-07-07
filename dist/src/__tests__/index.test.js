@@ -111,7 +111,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Password should be longer than 5 characters");
     }));
-    it.only("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Oh",
             password: "123444",
@@ -122,5 +122,25 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .send(newUser2)
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Name should be longer than 3 characters");
+    }));
+    it("GET /chats can connect to chats endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, supertest_1.default)(index_1.default).get("/chats").expect(200);
+    }));
+    it("GET /chats will return 404 if chat by non-existent user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).get("/chats/cat").expect(404);
+        (0, globals_1.expect)(response.body.msg).toBe("Cannot find messages for this user");
+    }));
+    it("GET /chats can find chats by users name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).get("/chats/Guest").expect(200);
+        console.log(response.body.chats);
+        response.body.chats.forEach((chat) => {
+            (0, globals_1.expect)(chat.name).toBe("Guest");
+            (0, globals_1.expect)(typeof chat.message).toBe("string");
+            (0, globals_1.expect)(typeof chat.date).toBe("string");
+        });
+    }));
+    it.only("GET /chats checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).get("/chats").expect(200);
+        (0, globals_1.expect)(response.body.chats.length).toBeGreaterThan(0);
     }));
 });
