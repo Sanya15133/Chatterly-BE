@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUser = exports.findUser = exports.findUsers = void 0;
+exports.checkLoginUser = exports.addUser = exports.findUser = exports.findUsers = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
 const connect_1 = __importStar(require("../connect"));
@@ -137,4 +137,31 @@ function addUser(name, password, avatar) {
     });
 }
 exports.addUser = addUser;
+function checkLoginUser(name, password) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield (0, connect_1.default)();
+        if (!name) {
+            return Promise.reject({
+                status: 400,
+                msg: "Missing name parameter",
+            });
+        }
+        if (!password) {
+            return Promise.reject({
+                status: 400,
+                msg: "Password is required",
+            });
+        }
+        const user = yield User.findOne({ name: name });
+        if (!user) {
+            return Promise.reject({ status: 404, msg: "User does not exist" });
+        }
+        const isPasswordMatch = yield bcrypt.compare(password, user.password);
+        if (!isPasswordMatch) {
+            return Promise.reject({ status: 401, msg: "Invalid password" });
+        }
+        return user;
+    });
+}
+exports.checkLoginUser = checkLoginUser;
 exports.default = User;

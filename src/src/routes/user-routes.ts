@@ -4,6 +4,9 @@ import {
   insertUser,
 } from "../controllers/user-controller";
 
+
+
+
 const userRouter = require("express").Router();
 
 userRouter.get("/", getUsers);

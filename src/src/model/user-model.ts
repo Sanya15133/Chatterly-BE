@@ -118,4 +118,35 @@ export async function addUser(name: string, password: string, avatar: string) {
   });
 }
 
+export async function checkLoginUser(name: string, password: string) {
+  await connectMongoose();
+
+  if (!name) {
+    return Promise.reject({
+      status: 400,
+      msg: "Missing name parameter",
+    });
+  }
+
+  if (!password) {
+    return Promise.reject({
+      status: 400,
+      msg: "Password is required",
+    });
+  }
+
+  const user = await User.findOne({ name: name });
+
+  if (!user) {
+    return Promise.reject({ status: 404, msg: "User does not exist" });
+  }
+
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordMatch) {
+    return Promise.reject({ status: 401, msg: "Invalid password" });
+  }
+  return user;
+}
+
 export default User;

@@ -1,4 +1,11 @@
-import { findUsers, findUser, addUser } from "../model/user-model";
+import {
+  findUsers,
+  findUser,
+  addUser,
+  checkLoginUser,
+} from "../model/user-model";
+
+const jwt = require("jsonwebtoken");
 
 export function getUsers(req: any, res: any, next: any) {
   return findUsers()
@@ -27,6 +34,22 @@ export function insertUser(req: any, res: any, next: any) {
   return addUser(name, password, avatar)
     .then((user) => {
       res.status(201).send({ user });
+    })
+    .catch((error) => {
+      next(error);
+    });
+}
+
+export function loginUser(req: any, res: any, next: any) {
+  const { name, password } = req.body;
+
+  return checkLoginUser(name, password)
+    .then((user) => {
+      console.log({ user });
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
+        expiresIn: "1h",
+      });
+      res.status(200).send({ token });
     })
     .catch((error) => {
       next(error);

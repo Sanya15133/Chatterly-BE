@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertUser = exports.getUserByName = exports.getUsers = void 0;
+exports.loginUser = exports.insertUser = exports.getUserByName = exports.getUsers = void 0;
 const user_model_1 = require("../model/user-model");
+const jwt = require("jsonwebtoken");
 function getUsers(req, res, next) {
     return (0, user_model_1.findUsers)()
         .then((users) => {
@@ -35,3 +36,18 @@ function insertUser(req, res, next) {
     });
 }
 exports.insertUser = insertUser;
+function loginUser(req, res, next) {
+    const { name, password } = req.body;
+    return (0, user_model_1.checkLoginUser)(name, password)
+        .then((user) => {
+        console.log({ user });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
+            expiresIn: "1h",
+        });
+        res.status(200).send({ token });
+    })
+        .catch((error) => {
+        next(error);
+    });
+}
+exports.loginUser = loginUser;
