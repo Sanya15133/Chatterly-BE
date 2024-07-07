@@ -7,7 +7,7 @@
     "start": "npm start",
     "build": "tsc build",
     "watch": "tsc --watch",
-    "test": "jest"
+    "test": "jest src/src/__tests__/index"
   },
   "keywords": [],
   "author": "",

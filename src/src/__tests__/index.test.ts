@@ -41,19 +41,19 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("User already exists");
   });
-  // it("POST /users will post new user if doesn't exist", async () => {
-  //   const newUser2 = {
-  //     name: "Anon",
-  //     password: "123456",
-  //     avatar:
-  //       "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
-  //   };
-  //   const response = await request(app)
-  //     .post("/users")
-  //     .send(newUser2)
-  //     .expect(201);
-  //   expect(response.body.user).toMatchObject({ name: "Anon" });
-  // });
+  it("POST /users will post new user if doesn't exist", async () => {
+    const newUser2 = {
+      name: "Dahlia",
+      password: "123456",
+      avatar:
+        "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    };
+    const response = await request(app)
+      .post("/users")
+      .send(newUser2)
+      .expect(201);
+    expect(response.body.user).toMatchObject({ name: "Dahlia" });
+  });
   it("POST /users will not post new user if missing name", async () => {
     const newUser2 = {
       password: "123456",
@@ -78,19 +78,19 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("Password is required");
   });
-  // it("POST /users will use default avatar if not provided", async () => {
-  //   const newUser2 = {
-  //     name: "Bob",
-  //     password: "123456",
-  //   };
-  //   const response = await request(app)
-  //     .post("/users")
-  //     .send(newUser2)
-  //     .expect(201);
-  //   expect(response.body.user).toMatchObject({
-  //     name: "Bob",
-  //     avatar:
-  //       "https://community.intellistrata.com.au/CommunityMobile/img/user.png",
-  //   });
-  // });
+  it("POST /users will use default avatar if not provided", async () => {
+    const newUser2 = {
+      name: "Marigold",
+      password: "123456",
+    };
+    const response = await request(app)
+      .post("/users")
+      .send(newUser2)
+      .expect(201);
+    expect(response.body.user).toMatchObject({
+      name: "Marigold",
+      avatar:
+        "https://community.intellistrata.com.au/CommunityMobile/img/user.png",
+    });
+  });
 });

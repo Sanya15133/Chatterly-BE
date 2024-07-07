@@ -29,7 +29,6 @@ export function insertUser(req: any, res: any, next: any) {
       res.status(201).send({ user });
     })
     .catch((error) => {
-      console.log(error);
       next(error);
     });
 }
