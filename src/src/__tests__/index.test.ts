@@ -130,7 +130,6 @@ describe("GET /users", () => {
   });
   it("GET /chats can find chats by users name if they exist on db", async () => {
     const response = await request(app).get("/chats/Guest").expect(200);
-    console.log(response.body.chats);
     response.body.chats.forEach((chat: any) => {
       expect(chat.name).toBe("Guest");
       expect(typeof chat.message).toBe("string");
@@ -175,7 +174,7 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("Missing message parameter");
   });
-  it.only("POST /chats will throw error if message is too short", async () => {
+  it("POST /chats will throw error if message is too short", async () => {
     const newChat = {
       name: "Peaches",
       message: "123",

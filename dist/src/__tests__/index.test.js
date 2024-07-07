@@ -132,7 +132,6 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
     }));
     it("GET /chats can find chats by users name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/chats/Guest").expect(200);
-        console.log(response.body.chats);
         response.body.chats.forEach((chat) => {
             (0, globals_1.expect)(chat.name).toBe("Guest");
             (0, globals_1.expect)(typeof chat.message).toBe("string");
@@ -177,7 +176,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Missing message parameter");
     }));
-    it.only("POST /chats will throw error if message is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("POST /chats will throw error if message is too short", () => __awaiter(void 0, void 0, void 0, function* () {
         const newChat = {
             name: "Peaches",
             message: "123",
@@ -187,17 +186,5 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .send(newChat)
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Message needs to be longer");
-    }));
-    it("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
-        const newUser2 = {
-            name: "Oh",
-            password: "123444",
-            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
-        };
-        const response = yield (0, supertest_1.default)(index_1.default)
-            .post("/users")
-            .send(newUser2)
-            .expect(400);
-        (0, globals_1.expect)(response.body.msg).toBe("Name should be longer than 3 characters");
     }));
 });

@@ -56,7 +56,6 @@ export async function findChatsByUser(name: string) {
         msg: "Cannot find messages for this user",
       });
     }
-    console.log({ chats });
     return chats;
   });
 }
@@ -82,7 +81,6 @@ export async function addChat(name: string, message: string, date: string) {
     return Promise.reject({ status: 400, msg: "Message needs to be longer" });
   }
   return Chat.create({ name, message, date }).then((chat) => {
-    console.log({ chat });
     return chat;
   });
 }
