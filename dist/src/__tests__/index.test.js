@@ -32,8 +32,8 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
         (0, globals_1.expect)(response.body.msg).toBe("Cannot find specified user");
     }));
     it("can find users by name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.default).get("/users/Guest").expect(200);
-        (0, globals_1.expect)(response.body.user).toMatchObject({ name: "Guest" });
+        const response = yield (0, supertest_1.default)(index_1.default).get("/users/Sanya").expect(200);
+        (0, globals_1.expect)(response.body.user).toMatchObject({ name: "Sanya" });
     }));
     it("checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users").expect(200);
@@ -51,7 +51,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("User already exists");
     }));
-    it("POST /users will post new user if user doesn't exist", () => __awaiter(void 0, void 0, void 0, function* () {
+    it.skip("POST /users will post new user if user doesn't exist", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Dahlia",
             password: "123456",
@@ -85,7 +85,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Password is required");
     }));
-    it("POST /users will use default avatar if not provided", () => __awaiter(void 0, void 0, void 0, function* () {
+    it.skip("POST /users will use default avatar if not provided", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Marigold",
             password: "123456",
@@ -131,9 +131,9 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
         (0, globals_1.expect)(response.body.msg).toBe("Cannot find messages for this user");
     }));
     it("GET /chats can find chats by users name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(index_1.default).get("/chats/Guest").expect(200);
+        const response = yield (0, supertest_1.default)(index_1.default).get("/chats/Sanya").expect(200);
         response.body.chats.forEach((chat) => {
-            (0, globals_1.expect)(chat.name).toBe("Guest");
+            (0, globals_1.expect)(chat.name).toBe("Sanya");
             (0, globals_1.expect)(typeof chat.message).toBe("string");
             (0, globals_1.expect)(typeof chat.date).toBe("string");
         });

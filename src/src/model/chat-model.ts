@@ -34,11 +34,11 @@ const Chat: Model<IChat> = model<IChat>("Chat", chatSchema);
 
 export default Chat;
 
-// const newMessage = new Chat({
-//   name: "Guest",
-//   message: "Testing DB",
-//   date: Date.now(),
-// });
+const newMessage = new Chat({
+  name: "Guest",
+  message: "Testing DB",
+  date: Date.now(),
+});
 
 export async function findChats() {
   connectMongoose();

@@ -35,11 +35,11 @@ const chatSchema = new mongoose_1.Schema({
 });
 const Chat = (0, mongoose_1.model)("Chat", chatSchema);
 exports.default = Chat;
-// const newMessage = new Chat({
-//   name: "Guest",
-//   message: "Testing DB",
-//   date: Date.now(),
-// });
+const newMessage = new Chat({
+    name: "Guest",
+    message: "Testing DB",
+    date: Date.now(),
+});
 function findChats() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();

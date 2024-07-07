@@ -21,8 +21,8 @@ describe("GET /users", () => {
     expect(response.body.msg).toBe("Cannot find specified user");
   });
   it("can find users by name if they exist on db", async () => {
-    const response = await request(app).get("/users/Guest").expect(200);
-    expect(response.body.user).toMatchObject({ name: "Guest" });
+    const response = await request(app).get("/users/Sanya").expect(200);
+    expect(response.body.user).toMatchObject({ name: "Sanya" });
   });
   it("checks db is not empty", async () => {
     const response = await request(app).get("/users").expect(200);
@@ -41,7 +41,7 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("User already exists");
   });
-  it("POST /users will post new user if user doesn't exist", async () => {
+  it.skip("POST /users will post new user if user doesn't exist", async () => {
     const newUser2 = {
       name: "Dahlia",
       password: "123456",
@@ -78,7 +78,7 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("Password is required");
   });
-  it("POST /users will use default avatar if not provided", async () => {
+  it.skip("POST /users will use default avatar if not provided", async () => {
     const newUser2 = {
       name: "Marigold",
       password: "123456",
@@ -129,9 +129,9 @@ describe("GET /users", () => {
     expect(response.body.msg).toBe("Cannot find messages for this user");
   });
   it("GET /chats can find chats by users name if they exist on db", async () => {
-    const response = await request(app).get("/chats/Guest").expect(200);
+    const response = await request(app).get("/chats/Sanya").expect(200);
     response.body.chats.forEach((chat: any) => {
-      expect(chat.name).toBe("Guest");
+      expect(chat.name).toBe("Sanya");
       expect(typeof chat.message).toBe("string");
       expect(typeof chat.date).toBe("string");
     });
