@@ -44,7 +44,6 @@ function findChats() {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
         return yield Chat.find().then((chats) => {
-            console.log(chats);
             return chats;
         });
     });
@@ -68,6 +67,12 @@ exports.findChatsByUser = findChatsByUser;
 function addChat(name, message, date) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
+        if (!name) {
+            return Promise.reject({
+                status: 400,
+                msg: "Missing name parameter",
+            });
+        }
         if (message.length < 5) {
             return Promise.reject({ status: 400, msg: "Message needs to be longer" });
         }
