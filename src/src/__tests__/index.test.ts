@@ -41,7 +41,7 @@ describe("GET /users", () => {
       .expect(400);
     expect(response.body.msg).toBe("User already exists");
   });
-  it("POST /users will post new user if doesn't exist", async () => {
+  it("POST /users will post new user if user doesn't exist", async () => {
     const newUser2 = {
       name: "Dahlia",
       password: "123456",
@@ -92,5 +92,33 @@ describe("GET /users", () => {
       avatar:
         "https://community.intellistrata.com.au/CommunityMobile/img/user.png",
     });
+  });
+  it("POST /users will throw error if password is too short", async () => {
+    const newUser2 = {
+      name: "Peaches",
+      password: "123",
+      avatar:
+        "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    };
+    const response = await request(app)
+      .post("/users")
+      .send(newUser2)
+      .expect(400);
+    expect(response.body.msg).toBe(
+      "Password should be longer than 5 characters"
+    );
+  });
+  it.only("POST /users will throw error if name is too short", async () => {
+    const newUser2 = {
+      name: "Oh",
+      password: "123444",
+      avatar:
+        "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+    };
+    const response = await request(app)
+      .post("/users")
+      .send(newUser2)
+      .expect(400);
+    expect(response.body.msg).toBe("Name should be longer than 3 characters");
   });
 });

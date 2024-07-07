@@ -51,7 +51,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("User already exists");
     }));
-    it("POST /users will post new user if doesn't exist", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("POST /users will post new user if user doesn't exist", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Dahlia",
             password: "123456",
@@ -98,5 +98,29 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             name: "Marigold",
             avatar: "https://community.intellistrata.com.au/CommunityMobile/img/user.png",
         });
+    }));
+    it("POST /users will throw error if password is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newUser2 = {
+            name: "Peaches",
+            password: "123",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users")
+            .send(newUser2)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Password should be longer than 5 characters");
+    }));
+    it.only("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+        const newUser2 = {
+            name: "Oh",
+            password: "123444",
+            avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
+        };
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .post("/users")
+            .send(newUser2)
+            .expect(400);
+        (0, globals_1.expect)(response.body.msg).toBe("Name should be longer than 3 characters");
     }));
 });
