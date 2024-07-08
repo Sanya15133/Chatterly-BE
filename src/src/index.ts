@@ -2,6 +2,7 @@ import express from "express";
 import apiRouter from "./routes/app-route";
 import userRouter from "./routes/user-routes";
 import chatRouter from "./routes/chat-routes";
+import cors from "cors";
 const {
   handleCustomErrors,
   handle400Errors,
@@ -11,6 +12,7 @@ const {
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/", apiRouter);
 app.use("/users", userRouter);
