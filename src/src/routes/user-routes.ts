@@ -10,6 +10,6 @@ const userRouter = require("express").Router();
 userRouter.get("/", getUsers);
 userRouter.get("/:name", getUserByName);
 userRouter.post("/", insertUser);
-userRouter.post("/login", loginUser);
+userRouter.post("/login/:name", loginUser);
 
 export default userRouter;
