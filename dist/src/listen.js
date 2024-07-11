@@ -18,12 +18,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const app = express();
+const index_1 = __importDefault(require("./index"));
 const WebSocket = __importStar(require("ws"));
 const PORT = 3000;
-const server = app.listen(PORT, () => {
+const server = index_1.default.listen(PORT, () => {
     console.log(`APP is running on ${PORT}`);
 });
 const wss = new WebSocket.Server({ server: server });

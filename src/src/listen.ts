@@ -1,5 +1,4 @@
-const express = require("express");
-const app = express();
+import app from "./index";
 import * as WebSocket from "ws";
 
 const PORT = 3000;
