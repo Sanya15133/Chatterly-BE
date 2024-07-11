@@ -4,6 +4,8 @@ import userRouter from "./routes/user-routes";
 import chatRouter from "./routes/chat-routes";
 import * as WebSocket from "ws";
 import cors from "cors";
+
+//had to combine index and listen file for render to host mongodb
 const {
   handleCustomErrors,
   handle400Errors,
