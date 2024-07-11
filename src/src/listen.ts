@@ -1,7 +1,7 @@
 import app from "./index";
 import * as WebSocket from "ws";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => {
   console.log(`APP is running on ${PORT}`);

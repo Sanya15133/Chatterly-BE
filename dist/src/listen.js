@@ -24,7 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("./index"));
 const WebSocket = __importStar(require("ws"));
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const server = index_1.default.listen(PORT, () => {
     console.log(`APP is running on ${PORT}`);
 });
