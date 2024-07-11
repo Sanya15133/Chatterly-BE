@@ -27,7 +27,7 @@ function connectMongoose() {
             yield mongoose_1.default.connect(url, {});
         }
         catch (error) {
-            console.log("Error:", error);
+            console.error("Error:", error);
         }
     });
 }

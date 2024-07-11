@@ -14,7 +14,7 @@ async function connectMongoose() {
 
     await mongoose.connect(url, {} as mongoose.ConnectOptions);
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 }
 
