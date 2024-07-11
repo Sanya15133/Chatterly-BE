@@ -18,12 +18,17 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 function connectMongoose() {
     return __awaiter(this, void 0, void 0, function* () {
-        const url = process.env.MONGODB_URI;
-        if (!url) {
-            console.error("Missing MONGODB_URI environment variable");
-            process.exit(1);
+        const url = process.env.DATABASE_URL;
+        try {
+            if (!url) {
+                console.error("Missing MONGODB_URI environment variable");
+                process.exit(1);
+            }
+            yield mongoose_1.default.connect(url, {});
         }
-        yield mongoose_1.default.connect(url, {});
+        catch (error) {
+            console.log("Error:", error);
+        }
     });
 }
 function disconnectMongoose() {

@@ -4,14 +4,18 @@ import dotenv from "dotenv";
 dotenv.config();
 
 async function connectMongoose() {
-  const url = process.env.MONGODB_URI;
+  const url = process.env.DATABASE_URL;
 
-  if (!url) {
-    console.error("Missing MONGODB_URI environment variable");
-    process.exit(1);
+  try {
+    if (!url) {
+      console.error("Missing MONGODB_URI environment variable");
+      process.exit(1);
+    }
+
+    await mongoose.connect(url, {} as mongoose.ConnectOptions);
+  } catch (error) {
+    console.log("Error:", error);
   }
-
-  await mongoose.connect(url, {} as mongoose.ConnectOptions);
 }
 
 export async function disconnectMongoose() {
