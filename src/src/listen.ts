@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-import * as WebSocket from 'ws';
+import * as WebSocket from "ws";
 
 const PORT = 3000;
 
@@ -15,7 +15,6 @@ wss.on("connection", (ws: any) => {
 
   ws.on("message", (message: any) => {
     console.log("Received: %s", message);
-
     ws.send(`${message}`);
   });
 
