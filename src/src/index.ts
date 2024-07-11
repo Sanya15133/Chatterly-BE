@@ -13,7 +13,7 @@ const {
   handle500Errors,
 } = require("./errors");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 const app = express();
 
 const server = app.listen(PORT, () => {

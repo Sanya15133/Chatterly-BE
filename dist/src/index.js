@@ -30,7 +30,7 @@ const WebSocket = __importStar(require("ws"));
 const cors_1 = __importDefault(require("cors"));
 //had to combine index and listen file for render to host mongodb
 const { handleCustomErrors, handle400Errors, handle404Errors, handle500Errors, } = require("./errors");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 const app = (0, express_1.default)();
 const server = app.listen(PORT, () => {
     console.log(`APP is running on ${PORT}`);
