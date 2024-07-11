@@ -3,6 +3,7 @@ import apiRouter from "./routes/app-route";
 import userRouter from "./routes/user-routes";
 import chatRouter from "./routes/chat-routes";
 import cors from "cors";
+import connectMongoose from "./connect";
 const {
   handleCustomErrors,
   handle400Errors,
