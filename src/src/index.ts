@@ -17,7 +17,6 @@ app.use(cors());
 
 app.use("/", apiRouter);
 app.use("/users", userRouter);
-app.use("/users/login", userRouter);
 app.use("/chats", chatRouter);
 
 app.use(handleCustomErrors);
