@@ -70,7 +70,7 @@ const guest = new User({
 });
 function findUsers() {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, connect_1.default)();
+        yield (0, connect_1.default)();
         return yield User.find().then((users) => {
             return users;
         });
@@ -95,8 +95,8 @@ function findUser(name) {
 exports.findUser = findUser;
 function addUser(name, password, avatar) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, connect_1.default)();
-        if (!name) {
+        yield (0, connect_1.default)();
+        if (!name && typeof name !== 'string') {
             return Promise.reject({
                 status: 400,
                 msg: "Missing name parameter",
@@ -114,7 +114,7 @@ function addUser(name, password, avatar) {
                 msg: "Name should be longer than 3 characters",
             });
         }
-        if (password.length < 5) {
+        if (password.length < 5 && typeof password !== 'string') {
             return Promise.reject({
                 status: 400,
                 msg: "Password should be longer than 5 characters",
