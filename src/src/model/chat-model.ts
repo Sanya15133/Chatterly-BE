@@ -60,17 +60,17 @@ export async function findChatsByUser(name: string) {
   });
 }
 
-export async function addChat(name: string, message: string, date: string) {
+export async function addChat(name: string, message: string) {
   connectMongoose();
 
-  if (!name) {
+  if (name.length < 3) {
     return Promise.reject({
       status: 400,
-      msg: "Missing name parameter",
+      msg: "Name needs to be longer than 2 characters",
     });
   }
 
-  if (!message) {
+  if (message.length < 5) {
     return Promise.reject({
       status: 400,
       msg: "Missing message parameter",
@@ -80,7 +80,7 @@ export async function addChat(name: string, message: string, date: string) {
   if (message.length < 5) {
     return Promise.reject({ status: 400, msg: "Message needs to be longer" });
   }
-  return Chat.create({ name, message, date }).then((chat) => {
+  return Chat.create({ name, message }).then((chat) => {
     return chat;
   });
 }
