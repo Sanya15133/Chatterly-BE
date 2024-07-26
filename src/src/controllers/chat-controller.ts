@@ -22,8 +22,8 @@ export function getChatsByUser(req: any, res: any, next: any) {
 }
 
 export function insertChats(req: any, res: any, next: any) {
-  const { name, message, date } = req.body;
-  return addChat(name, message, date)
+  const { name, message } = req.body;
+  return addChat(name, message)
     .then((chat) => {
       res.status(201).send({ chat });
     })
