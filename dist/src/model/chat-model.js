@@ -82,7 +82,7 @@ function addChat(name, message) {
         if (message.length < 5) {
             return Promise.reject({ status: 400, msg: "Message needs to be longer" });
         }
-        return Chat.create({ name, message }).then((chat) => {
+        return yield Chat.create({ name, message }).then((chat) => {
             return chat;
         });
     });
