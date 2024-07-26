@@ -58,7 +58,7 @@ export async function findUsers() {
 
 export async function findUser(name: string) {
   await connectMongoose();
-  return User.find({ name: name }).then((user) => {
+  return await User.find({ name: name }).then((user) => {
     disconnectMongoose();
     if (user.length === 0) {
       return Promise.reject({
