@@ -7,8 +7,8 @@ import {
 
 const jwt = require("jsonwebtoken");
 
-export function getUsers(req: any, res: any, next: any) {
-  return findUsers()
+export async function getUsers(req: any, res: any, next: any) {
+  return await findUsers()
     .then((users) => {
       res.status(200).send({ users });
     })
@@ -17,9 +17,9 @@ export function getUsers(req: any, res: any, next: any) {
     });
 }
 
-export function getUserByName(req: any, res: any, next: any) {
+export async function getUserByName(req: any, res: any, next: any) {
   const { name } = req.params;
-  return findUser(name)
+  return await findUser(name)
     .then((users) => {
       const user = users[0];
       res.status(200).send({ user });
@@ -29,9 +29,9 @@ export function getUserByName(req: any, res: any, next: any) {
     });
 }
 
-export function insertUser(req: any, res: any, next: any) {
+export async function insertUser(req: any, res: any, next: any) {
   const { name, password, avatar } = req.body;
-  return addUser(name, password, avatar)
+  return await addUser(name, password, avatar)
     .then((user) => {
       res.status(201).send({ user });
     })
@@ -40,10 +40,10 @@ export function insertUser(req: any, res: any, next: any) {
     });
 }
 
-export function loginUser(req: any, res: any, next: any) {
+export async function loginUser(req: any, res: any, next: any) {
   const { name, password } = req.body;
 
-  return checkLoginUser(name, password)
+  return await checkLoginUser(name, password)
     .then((user) => {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
         expiresIn: "1h",
