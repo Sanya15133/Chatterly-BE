@@ -42,7 +42,7 @@ const newMessage = new Chat({
 });
 function findChats() {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, connect_1.default)();
+        yield (0, connect_1.default)();
         return yield Chat.find().then((chats) => {
             return chats;
         });
@@ -51,7 +51,7 @@ function findChats() {
 exports.findChats = findChats;
 function findChatsByUser(name) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, connect_1.default)();
+        yield (0, connect_1.default)();
         return yield Chat.find({ name: name }).then((chats) => {
             if (chats.length === 0) {
                 return Promise.reject({
@@ -66,7 +66,7 @@ function findChatsByUser(name) {
 exports.findChatsByUser = findChatsByUser;
 function addChat(name, message) {
     return __awaiter(this, void 0, void 0, function* () {
-        (0, connect_1.default)();
+        yield (0, connect_1.default)();
         if (name.length < 3 && typeof name !== 'string') {
             return Promise.reject({
                 status: 400,
