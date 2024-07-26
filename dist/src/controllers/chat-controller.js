@@ -24,8 +24,8 @@ function getChatsByUser(req, res, next) {
 }
 exports.getChatsByUser = getChatsByUser;
 function insertChats(req, res, next) {
-    const { name, message, date } = req.body;
-    return (0, chat_model_1.addChat)(name, message, date)
+    const { name, message } = req.body;
+    return (0, chat_model_1.addChat)(name, message)
         .then((chat) => {
         res.status(201).send({ chat });
     })
