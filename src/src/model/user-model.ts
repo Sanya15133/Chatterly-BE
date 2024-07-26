@@ -50,7 +50,7 @@ const guest = new User({
 });
 
 export async function findUsers() {
-  connectMongoose();
+  await connectMongoose();
   return await User.find().then((users) => {
     return users;
   });
@@ -71,9 +71,9 @@ export async function findUser(name: string) {
 }
 
 export async function addUser(name: string, password: string, avatar: string) {
-  connectMongoose();
+  await connectMongoose();
 
-  if (!name) {
+  if (!name && typeof name !== 'string') {
     return Promise.reject({
       status: 400,
       msg: "Missing name parameter",
@@ -94,7 +94,7 @@ export async function addUser(name: string, password: string, avatar: string) {
     });
   }
 
-  if (password.length < 5) {
+  if (password.length < 5 && typeof password !== 'string') {
     return Promise.reject({
       status: 400,
       msg: "Password should be longer than 5 characters",
