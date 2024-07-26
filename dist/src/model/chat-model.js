@@ -67,20 +67,20 @@ exports.findChatsByUser = findChatsByUser;
 function addChat(name, message) {
     return __awaiter(this, void 0, void 0, function* () {
         (0, connect_1.default)();
-        if (name.length < 3) {
+        if (name.length < 3 && typeof name !== 'string') {
             return Promise.reject({
                 status: 400,
-                msg: "Name needs to be longer than 2 characters",
+                msg: "Name needs to be longer than 2 characters and should include text",
             });
         }
-        if (message.length < 5) {
+        if (message.length < 5 && typeof message !== 'string') {
             return Promise.reject({
                 status: 400,
                 msg: "Missing message parameter",
             });
         }
         if (message.length < 5) {
-            return Promise.reject({ status: 400, msg: "Message needs to be longer" });
+            return Promise.reject({ status: 400, msg: "Message needs to be longer and should include text" });
         }
         return yield Chat.create({ name, message }).then((chat) => {
             return chat;
