@@ -41,14 +41,14 @@ const newMessage = new Chat({
 });
 
 export async function findChats() {
-  connectMongoose();
+  await connectMongoose();
   return await Chat.find().then((chats) => {
     return chats;
   });
 }
 
 export async function findChatsByUser(name: string) {
-  connectMongoose();
+  await connectMongoose();
   return await Chat.find({ name: name }).then((chats) => {
     if (chats.length === 0) {
       return Promise.reject({
@@ -61,7 +61,7 @@ export async function findChatsByUser(name: string) {
 }
 
 export async function addChat(name: string, message: string) {
-  connectMongoose();
+  await connectMongoose();
 
   if (name.length < 3 && typeof name !== 'string') {
     return Promise.reject({
