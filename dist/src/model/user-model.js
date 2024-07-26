@@ -80,7 +80,7 @@ exports.findUsers = findUsers;
 function findUser(name) {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, connect_1.default)();
-        return User.find({ name: name }).then((user) => {
+        return yield User.find({ name: name }).then((user) => {
             (0, connect_1.disconnectMongoose)();
             if (user.length === 0) {
                 return Promise.reject({
