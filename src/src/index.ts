@@ -28,14 +28,14 @@ wss.on("connection", (ws: any) => {
   ws.on("message", (message: any) => {
     console.log("Received: %s", message);
 
-    wss.clients.forEach((client) => {
+    wss.clients.forEach((client: any) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
     });
   });
 
-  ws.on("close", function () {
+  ws.on("close", () => {
     console.log("Client disconnected");
   });
 });
