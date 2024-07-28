@@ -40,7 +40,12 @@ wss.on("connection", (ws) => {
     console.log("Client connected");
     ws.on("message", (message) => {
         console.log("Received: %s", message);
-        ws.send(`${message}`);
+        // Broadcast the message to all connected clients
+        wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(message);
+            }
+        });
     });
     ws.on("close", function () {
         console.log("Client disconnected");
