@@ -46,7 +46,7 @@ wss.on("connection", (ws) => {
             }
         });
     });
-    ws.on("close", function () {
+    ws.on("close", () => {
         console.log("Client disconnected");
     });
 });
