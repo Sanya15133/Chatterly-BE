@@ -49,6 +49,9 @@ wss.on("connection", (ws) => {
     ws.on("close", () => {
         console.log("Client disconnected");
     });
+    ws.on('error', (error) => {
+        console.error('WebSocket error:', error);
+    });
 });
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
