@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node dist/src/index.js",
     "start:prod": "node dist/src/index.js",
-    "build": "tsc build",
-    "watch": "tsc --watch",
+    "build": "tsc",
     "test": "jest src/src/__tests__/index"
   },
   "keywords": [],
