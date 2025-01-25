@@ -13,6 +13,7 @@ export async function getUsers(req: any, res: any, next: any) {
       res.status(200).send({ users });
     })
     .catch((error) => {
+      console.log(error, 'in get all users')
       next(error);
     });
 }
@@ -25,6 +26,7 @@ export async function getUserByName(req: any, res: any, next: any) {
       res.status(200).send({ user });
     })
     .catch((error) => {
+      console.log(error, 'in get user by name')
       next(error);
     });
 }
@@ -36,6 +38,7 @@ export async function insertUser(req: any, res: any, next: any) {
       res.status(201).send({ user });
     })
     .catch((error) => {
+      console.log(error, 'in insert user')
       next(error);
     });
 }
@@ -51,6 +54,7 @@ export async function loginUser(req: any, res: any, next: any) {
       res.status(200).send({ token });
     })
     .catch((error) => {
+      console.log(error, 'in login')
       next(error);
     });
 }

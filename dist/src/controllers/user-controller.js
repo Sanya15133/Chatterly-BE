@@ -19,6 +19,7 @@ function getUsers(req, res, next) {
             res.status(200).send({ users });
         })
             .catch((error) => {
+            console.log(error, 'in get all users');
             next(error);
         });
     });
@@ -33,6 +34,7 @@ function getUserByName(req, res, next) {
             res.status(200).send({ user });
         })
             .catch((error) => {
+            console.log(error, 'in get user by name');
             next(error);
         });
     });
@@ -46,6 +48,7 @@ function insertUser(req, res, next) {
             res.status(201).send({ user });
         })
             .catch((error) => {
+            console.log(error, 'in insert user');
             next(error);
         });
     });
@@ -62,6 +65,7 @@ function loginUser(req, res, next) {
             res.status(200).send({ token });
         })
             .catch((error) => {
+            console.log(error, 'in login');
             next(error);
         });
     });
