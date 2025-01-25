@@ -1,4 +1,4 @@
-import { describe, expect } from "@jest/globals";
+import { describe, expect, beforeEach, afterEach, it } from "@jest/globals";
 import app from "../index";
 import request from "supertest";
 import connectMongoose from "../connect";
@@ -95,7 +95,7 @@ describe("GET /users", () => {
   });
   it("POST /users will throw error if password is too short", async () => {
     const newUser2 = {
-      name: "Peaches",
+      name: "Frame",
       password: "123",
       avatar:
         "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
@@ -183,7 +183,7 @@ describe("GET /users", () => {
       .post("/chats")
       .send(newChat)
       .expect(400);
-    expect(response.body.msg).toBe("Message needs to be longer");
+    expect(response.body.msg).toBe("Message needs to be longer and should include text");
   });
   it("POST /users/login will throw error if not given name", async () => {
     const logIn = {

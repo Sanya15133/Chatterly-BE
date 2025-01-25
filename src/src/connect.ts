@@ -8,13 +8,12 @@ async function connectMongoose() {
 
   try {
     if (!url) {
-      console.error("Missing MONGODB_URI environment variable");
+      console.log("Missing MONGODB_URI environment variable");
       process.exit(1);
     }
-
     await mongoose.connect(url, {} as mongoose.ConnectOptions);
   } catch (error) {
-    console.error("Error:", error);
+    console.log("Error:", error);
   }
 }
 

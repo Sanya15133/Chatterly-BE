@@ -44,6 +44,7 @@ function insertChats(req, res, next) {
             res.status(201).send({ chat });
         })
             .catch((error) => {
+            console.log(error);
             next(error);
         });
     });

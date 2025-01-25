@@ -63,14 +63,28 @@ export async function findChatsByUser(name: string) {
 export async function addChat(name: string, message: string) {
   await connectMongoose();
 
-  if (name.length < 3 && typeof name !== 'string') {
+  if (!message) {
+    return Promise.reject({
+      status: 400,
+      msg: "Missing message parameter",
+    });
+  }
+
+  if (!name) {
+    return Promise.reject({
+      status: 400,
+      msg: "Missing name parameter",
+    });
+  }
+
+  if (name.length < 3 && typeof name !== "string") {
     return Promise.reject({
       status: 400,
       msg: "Name needs to be longer than 2 characters and should include text",
     });
   }
 
-  if (message.length < 5 && typeof message !== 'string') {
+  if (message.length < 5 && typeof message !== "string") {
     return Promise.reject({
       status: 400,
       msg: "Missing message parameter",
@@ -78,7 +92,10 @@ export async function addChat(name: string, message: string) {
   }
 
   if (message.length < 5) {
-    return Promise.reject({ status: 400, msg: "Message needs to be longer and should include text" });
+    return Promise.reject({
+      status: 400,
+      msg: "Message needs to be longer and should include text",
+    });
   }
   return await Chat.create({ name, message }).then((chat) => {
     return chat;

@@ -17,29 +17,29 @@ const index_1 = __importDefault(require("../index"));
 const supertest_1 = __importDefault(require("supertest"));
 const connect_1 = __importDefault(require("../connect"));
 const connect_2 = require("../connect");
-beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
+(0, globals_1.beforeEach)(() => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connect_1.default)();
 }));
-afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
+(0, globals_1.afterEach)(() => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, connect_2.disconnectMongoose)();
 }));
 (0, globals_1.describe)("GET /users", () => {
-    it("users can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("users can connect to users endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         yield (0, supertest_1.default)(index_1.default).get("/users").expect(200);
     }));
-    it("will return 404 if user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("will return 404 if user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users/cat").expect(404);
         (0, globals_1.expect)(response.body.msg).toBe("Cannot find specified user");
     }));
-    it("can find users by name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("can find users by name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users/Sanya").expect(200);
         (0, globals_1.expect)(response.body.user).toMatchObject({ name: "Sanya" });
     }));
-    it("checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/users").expect(200);
         (0, globals_1.expect)(response.body.users.length).toBeGreaterThan(0);
     }));
-    it("POST /users will not post user if already exists", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users will not post user if already exists", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = {
             name: "Sanya",
             password: "123456",
@@ -51,7 +51,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("User already exists");
     }));
-    it.skip("POST /users will post new user if user doesn't exist", () => __awaiter(void 0, void 0, void 0, function* () {
+    globals_1.it.skip("POST /users will post new user if user doesn't exist", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Dahlia",
             password: "123456",
@@ -63,7 +63,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(201);
         (0, globals_1.expect)(response.body.user).toMatchObject({ name: "Dahlia" });
     }));
-    it("POST /users will not post new user if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users will not post new user if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             password: "123456",
             avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
@@ -74,7 +74,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
     }));
-    it("POST /users will not post new user if missing password", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users will not post new user if missing password", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "123456",
             avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
@@ -85,7 +85,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Password is required");
     }));
-    it.skip("POST /users will use default avatar if not provided", () => __awaiter(void 0, void 0, void 0, function* () {
+    globals_1.it.skip("POST /users will use default avatar if not provided", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Marigold",
             password: "123456",
@@ -99,9 +99,9 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             avatar: "https://community.intellistrata.com.au/CommunityMobile/img/user.png",
         });
     }));
-    it("POST /users will throw error if password is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users will throw error if password is too short", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
-            name: "Peaches",
+            name: "Frame",
             password: "123",
             avatar: "http://vignette1.wikia.nocookie.net/mrmen/images/7/7a/Little_Miss_Bad.png/revision/latest?cb=20160325190558",
         };
@@ -111,7 +111,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Password should be longer than 5 characters");
     }));
-    it("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users will throw error if name is too short", () => __awaiter(void 0, void 0, void 0, function* () {
         const newUser2 = {
             name: "Oh",
             password: "123444",
@@ -123,14 +123,14 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Name should be longer than 3 characters");
     }));
-    it("GET /chats can connect to chats endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("GET /chats can connect to chats endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         yield (0, supertest_1.default)(index_1.default).get("/chats").expect(200);
     }));
-    it("GET /chats will return 404 if chat by non-existent user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("GET /chats will return 404 if chat by non-existent user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/chats/cat").expect(404);
         (0, globals_1.expect)(response.body.msg).toBe("Cannot find messages for this user");
     }));
-    it("GET /chats can find chats by users name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("GET /chats can find chats by users name if they exist on db", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/chats/Sanya").expect(200);
         response.body.chats.forEach((chat) => {
             (0, globals_1.expect)(chat.name).toBe("Sanya");
@@ -138,11 +138,11 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             (0, globals_1.expect)(typeof chat.date).toBe("string");
         });
     }));
-    it("GET /chats checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("GET /chats checks db is not empty", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(index_1.default).get("/chats").expect(200);
         (0, globals_1.expect)(response.body.chats.length).toBeGreaterThan(0);
     }));
-    it("POST /chats will post chats will all required parameters", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /chats will post chats will all required parameters", () => __awaiter(void 0, void 0, void 0, function* () {
         const newChat = {
             name: "Sanya",
             message: "Hello World",
@@ -156,7 +156,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             message: "Hello World",
         });
     }));
-    it("POST /chats will not post new chat if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
+    globals_1.it.only("POST /chats will not post new chat if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
         const newChat = {
             message: "123456",
         };
@@ -166,7 +166,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
     }));
-    it("POST /chats will not post new chat if missing message", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /chats will not post new chat if missing message", () => __awaiter(void 0, void 0, void 0, function* () {
         const newChat = {
             name: "123456",
         };
@@ -176,7 +176,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Missing message parameter");
     }));
-    it("POST /chats will throw error if message is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /chats will throw error if message is too short", () => __awaiter(void 0, void 0, void 0, function* () {
         const newChat = {
             name: "Peaches",
             message: "123",
@@ -185,9 +185,9 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .post("/chats")
             .send(newChat)
             .expect(400);
-        (0, globals_1.expect)(response.body.msg).toBe("Message needs to be longer");
+        (0, globals_1.expect)(response.body.msg).toBe("Message needs to be longer and should include text");
     }));
-    it("POST /users/login will throw error if not given name", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users/login will throw error if not given name", () => __awaiter(void 0, void 0, void 0, function* () {
         const logIn = {
             password: "123",
         };
@@ -197,7 +197,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Missing name parameter");
     }));
-    it("POST /users/login will throw error if not given password", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users/login will throw error if not given password", () => __awaiter(void 0, void 0, void 0, function* () {
         const logIn = {
             name: "123",
         };
@@ -207,7 +207,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(400);
         (0, globals_1.expect)(response.body.msg).toBe("Password is required");
     }));
-    it("POST /users/login will throw error if not given valid user", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users/login will throw error if not given valid user", () => __awaiter(void 0, void 0, void 0, function* () {
         const logIn = {
             name: "Ned Stark",
             password: "Winterfell",
@@ -218,7 +218,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .expect(404);
         (0, globals_1.expect)(response.body.msg).toBe("User does not exist");
     }));
-    it("POST /users/login will login if given valid user", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users/login will login if given valid user", () => __awaiter(void 0, void 0, void 0, function* () {
         const logIn = {
             name: "Sanya",
             password: "123456",
@@ -228,7 +228,7 @@ afterEach(() => __awaiter(void 0, void 0, void 0, function* () {
             .send(logIn)
             .expect(200);
     }));
-    it("POST /users/login will throw error if given valid user but invalid password", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /users/login will throw error if given valid user but invalid password", () => __awaiter(void 0, void 0, void 0, function* () {
         const logIn = {
             name: "Sanya",
             password: "67890",

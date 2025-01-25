@@ -73,7 +73,7 @@ export async function findUser(name: string) {
 export async function addUser(name: string, password: string, avatar: string) {
   await connectMongoose();
 
-  if (!name && typeof name !== 'string') {
+  if (!name) {
     return Promise.reject({
       status: 400,
       msg: "Missing name parameter",
@@ -94,7 +94,7 @@ export async function addUser(name: string, password: string, avatar: string) {
     });
   }
 
-  if (password.length < 5 && typeof password !== 'string') {
+  if (password.length < 5 || typeof password !== 'string') {
     return Promise.reject({
       status: 400,
       msg: "Password should be longer than 5 characters",

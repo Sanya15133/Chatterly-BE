@@ -21,13 +21,13 @@ function connectMongoose() {
         const url = process.env.DATABASE_URL;
         try {
             if (!url) {
-                console.error("Missing MONGODB_URI environment variable");
+                console.log("Missing MONGODB_URI environment variable");
                 process.exit(1);
             }
             yield mongoose_1.default.connect(url, {});
         }
         catch (error) {
-            console.error("Error:", error);
+            console.log("Error:", error);
         }
     });
 }

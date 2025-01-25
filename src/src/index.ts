@@ -16,7 +16,6 @@ const {
 const PORT = process.env.PORT || 10000;
 const app = express();
 
-console.log("hello from index.ts file");
 
 const server = app.listen(PORT, () => {
   console.log(`APP is running on ${PORT}`);
