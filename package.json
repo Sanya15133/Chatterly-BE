@@ -4,8 +4,8 @@
   "main": "listen.js",
   "type": "commonjs",
   "scripts": {
-    "start": "npm start",
-    "start: prod": "dist/src/index.js",
+    "start": "node dist/src/index.js",
+    "start:prod": "node dist/src/index.js",
     "build": "tsc build",
     "watch": "tsc --watch",
     "test": "jest src/src/__tests__/index"
