@@ -5,7 +5,7 @@ import chatRouter from "./routes/chat-routes";
 import * as WebSocket from "ws";
 import cors from "cors";
 
-//had to combine index and listen file for render to host mongodb
+//had to combine index and listen file for render to host mongodb as both web socket and express use same server
 const {
   handleCustomErrors,
   handle400Errors,

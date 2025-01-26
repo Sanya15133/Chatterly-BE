@@ -156,7 +156,7 @@ const connect_2 = require("../connect");
             message: "Hello World",
         });
     }));
-    globals_1.it.only("POST /chats will not post new chat if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, globals_1.it)("POST /chats will not post new chat if missing name", () => __awaiter(void 0, void 0, void 0, function* () {
         const newChat = {
             message: "123456",
         };

@@ -28,11 +28,10 @@ const user_routes_1 = __importDefault(require("./routes/user-routes"));
 const chat_routes_1 = __importDefault(require("./routes/chat-routes"));
 const WebSocket = __importStar(require("ws"));
 const cors_1 = __importDefault(require("cors"));
-//had to combine index and listen file for render to host mongodb
+//had to combine index and listen file for render to host mongodb as both web socket and express use same server
 const { handleCustomErrors, handle400Errors, handle404Errors, handle500Errors, } = require("./errors");
 const PORT = process.env.PORT || 10000;
 const app = (0, express_1.default)();
-console.log("hello from index.ts file");
 const server = app.listen(PORT, () => {
     console.log(`APP is running on ${PORT}`);
 });
