@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.insertUser = exports.getUserByName = exports.getUsers = void 0;
+exports.deleteUser = exports.loginUser = exports.insertUser = exports.getUserByName = exports.getUsers = void 0;
 const user_model_1 = require("../model/user-model");
 const jwt = require("jsonwebtoken");
 function getUsers(req, res, next) {
@@ -67,3 +67,7 @@ function loginUser(req, res, next) {
     });
 }
 exports.loginUser = loginUser;
+function deleteUser(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () { });
+}
+exports.deleteUser = deleteUser;

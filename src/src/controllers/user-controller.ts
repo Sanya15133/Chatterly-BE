@@ -54,3 +54,5 @@ export async function loginUser(req: any, res: any, next: any) {
       next(error);
     });
 }
+
+export async function deleteUser(req: any, res: any, next: any) {}
