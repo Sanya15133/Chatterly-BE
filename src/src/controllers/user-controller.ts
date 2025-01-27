@@ -1,8 +1,10 @@
+import { error } from "console";
 import {
   findUsers,
   findUser,
   addUser,
   checkLoginUser,
+  findUserToDelete,
 } from "../model/user-model";
 
 const jwt = require("jsonwebtoken");
@@ -55,4 +57,14 @@ export async function loginUser(req: any, res: any, next: any) {
     });
 }
 
-export async function deleteUser(req: any, res: any, next: any) {}
+export async function deleteUser(req: any, res: any, next: any) {
+  const { name } = req.body;
+
+  return await findUserToDelete(name)
+    .then((user) => {
+      res.status(204).delete({ user });
+    })
+    .catch((error) => {
+      next(error);
+    });
+}

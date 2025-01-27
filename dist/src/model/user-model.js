@@ -28,7 +28,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkLoginUser = exports.addUser = exports.findUser = exports.findUsers = void 0;
+exports.findUserToDelete = exports.checkLoginUser = exports.addUser = exports.findUser = exports.findUsers = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt = __importStar(require("bcrypt"));
 const connect_1 = __importStar(require("../connect"));
@@ -114,7 +114,7 @@ function addUser(name, password, avatar) {
                 msg: "Name should be longer than 3 characters",
             });
         }
-        if (password.length < 5 || typeof password !== 'string') {
+        if (password.length < 5 || typeof password !== "string") {
             return Promise.reject({
                 status: 400,
                 msg: "Password should be longer than 5 characters",
@@ -164,4 +164,14 @@ function checkLoginUser(name, password) {
     });
 }
 exports.checkLoginUser = checkLoginUser;
+function findUserToDelete(name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield (0, connect_1.default)();
+        return yield User.deleteOne({ name: name }).then((user) => {
+            (0, connect_1.disconnectMongoose)();
+            return user;
+        });
+    });
+}
+exports.findUserToDelete = findUserToDelete;
 exports.default = User;

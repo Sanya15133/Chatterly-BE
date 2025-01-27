@@ -94,7 +94,7 @@ export async function addUser(name: string, password: string, avatar: string) {
     });
   }
 
-  if (password.length < 5 || typeof password !== 'string') {
+  if (password.length < 5 || typeof password !== "string") {
     return Promise.reject({
       status: 400,
       msg: "Password should be longer than 5 characters",
@@ -147,6 +147,14 @@ export async function checkLoginUser(name: string, password: string) {
     return Promise.reject({ status: 401, msg: "Invalid password" });
   }
   return user;
+}
+
+export async function findUserToDelete(name: string) {
+  await connectMongoose();
+  return await User.deleteOne({ name: name }).then((user) => {
+    disconnectMongoose();
+    return user;
+  });
 }
 
 export default User;
