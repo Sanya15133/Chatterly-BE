@@ -239,4 +239,13 @@ const connect_2 = require("../connect");
             .expect(401);
         (0, globals_1.expect)(response.body.msg).toBe("Invalid password");
     }));
+    globals_1.it.skip("DELETE/ users will delete user", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).delete("/users/Oranges").expect(204);
+    }));
+    (0, globals_1.it)("DELETE / users will return error if user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .delete("/users/nonexistent")
+            .expect(404);
+        (0, globals_1.expect)(response.body.msg).toBe("User does not exist");
+    }));
 });

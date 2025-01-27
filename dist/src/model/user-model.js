@@ -167,10 +167,10 @@ exports.checkLoginUser = checkLoginUser;
 function findUserToDelete(name) {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, connect_1.default)();
-        return yield User.deleteOne({ name: name }).then((user) => {
-            (0, connect_1.disconnectMongoose)();
-            return user;
-        });
+        const result = yield User.deleteOne({ name: name });
+        if (result.deletedCount === 0) {
+            return Promise.reject({ status: 404, msg: "User does not exist" });
+        }
     });
 }
 exports.findUserToDelete = findUserToDelete;

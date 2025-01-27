@@ -69,12 +69,14 @@ function loginUser(req, res, next) {
 exports.loginUser = loginUser;
 function deleteUser(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { name } = req.body;
+        const { name } = req.params;
         return yield (0, user_model_1.findUserToDelete)(name)
             .then((user) => {
-            res.status(204).delete({ user });
+            console.log(user);
+            res.status(204).send({ user });
         })
             .catch((error) => {
+            console.log(error);
             next(error);
         });
     });

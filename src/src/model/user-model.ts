@@ -151,10 +151,11 @@ export async function checkLoginUser(name: string, password: string) {
 
 export async function findUserToDelete(name: string) {
   await connectMongoose();
-  return await User.deleteOne({ name: name }).then((user) => {
-    disconnectMongoose();
-    return user;
-  });
+  const result = await User.deleteOne({ name: name });
+
+  if (result.deletedCount === 0) {
+    return Promise.reject({ status: 404, msg: "User does not exist" });
+  }
 }
 
 export default User;

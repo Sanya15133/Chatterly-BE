@@ -183,7 +183,9 @@ describe("GET /users", () => {
       .post("/chats")
       .send(newChat)
       .expect(400);
-    expect(response.body.msg).toBe("Message needs to be longer and should include text");
+    expect(response.body.msg).toBe(
+      "Message needs to be longer and should include text"
+    );
   });
   it("POST /users/login will throw error if not given name", async () => {
     const logIn = {
@@ -236,5 +238,14 @@ describe("GET /users", () => {
       .send(logIn)
       .expect(401);
     expect(response.body.msg).toBe("Invalid password");
+  });
+  it.skip("DELETE/ users will delete user", async () => {
+    const response = await request(app).delete("/users/Oranges").expect(204);
+  });
+  it("DELETE / users will return error if user does not exist", async () => {
+    const response = await request(app)
+      .delete("/users/nonexistent")
+      .expect(404);
+    expect(response.body.msg).toBe("User does not exist");
   });
 });

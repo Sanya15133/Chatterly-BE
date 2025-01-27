@@ -58,13 +58,14 @@ export async function loginUser(req: any, res: any, next: any) {
 }
 
 export async function deleteUser(req: any, res: any, next: any) {
-  const { name } = req.body;
-
+  const { name } = req.params;
   return await findUserToDelete(name)
     .then((user) => {
-      res.status(204).delete({ user });
+      console.log(user)
+      res.status(204).send({ user });
     })
     .catch((error) => {
+      console.log(error)
       next(error);
     });
 }
