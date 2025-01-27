@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema, Model, model } from "mongoose";
 import connectMongoose from "../connect";
 import { disconnectMongoose } from "../connect";
+import { AsyncLocalStorage } from "async_hooks";
 
 interface IChat extends Document {
   name: string;
@@ -100,4 +101,12 @@ export async function addChat(name: string, message: string) {
   return await Chat.create({ name, message }).then((chat) => {
     return chat;
   });
+}
+
+export async function findChatToDelete(name: string) {
+  await connectMongoose();
+  const result = await Chat.deleteOne({ name });
+  if (result.deletedCount === 0) {
+    return Promise.reject({ status: 404, msg: "No chat by this user exists" });
+  }
 }

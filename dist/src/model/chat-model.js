@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addChat = exports.findChatsByUser = exports.findChats = void 0;
+exports.findChatToDelete = exports.addChat = exports.findChatsByUser = exports.findChats = void 0;
 const mongoose_1 = require("mongoose");
 const connect_1 = __importDefault(require("../connect"));
 const chatSchema = new mongoose_1.Schema({
@@ -103,3 +103,13 @@ function addChat(name, message) {
     });
 }
 exports.addChat = addChat;
+function findChatToDelete(name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield (0, connect_1.default)();
+        const result = yield Chat.deleteOne({ name });
+        if (result.deletedCount === 0) {
+            return Promise.reject({ status: 404, msg: "No chat by this user exists" });
+        }
+    });
+}
+exports.findChatToDelete = findChatToDelete;

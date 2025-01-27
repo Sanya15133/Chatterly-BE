@@ -61,11 +61,9 @@ export async function deleteUser(req: any, res: any, next: any) {
   const { name } = req.params;
   return await findUserToDelete(name)
     .then((user) => {
-      console.log(user)
       res.status(204).send({ user });
     })
     .catch((error) => {
-      console.log(error)
       next(error);
     });
 }

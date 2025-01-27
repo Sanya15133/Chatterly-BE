@@ -72,11 +72,9 @@ function deleteUser(req, res, next) {
         const { name } = req.params;
         return yield (0, user_model_1.findUserToDelete)(name)
             .then((user) => {
-            console.log(user);
             res.status(204).send({ user });
         })
             .catch((error) => {
-            console.log(error);
             next(error);
         });
     });

@@ -5,4 +5,5 @@ const chatRouter = require("express").Router();
 chatRouter.get("/", chat_controller_1.getChats);
 chatRouter.get("/:name", chat_controller_1.getChatsByUser);
 chatRouter.post("/", chat_controller_1.insertChats);
+chatRouter.delete("/:name", chat_controller_1.deleteChatByUser);
 exports.default = chatRouter;

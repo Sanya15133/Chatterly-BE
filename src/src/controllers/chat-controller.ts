@@ -1,4 +1,9 @@
-import { addChat, findChats, findChatsByUser } from "../model/chat-model";
+import {
+  addChat,
+  findChats,
+  findChatsByUser,
+  findChatToDelete,
+} from "../model/chat-model";
 
 export async function getChats(req: any, res: any, next: any) {
   return await findChats()
@@ -30,4 +35,11 @@ export async function insertChats(req: any, res: any, next: any) {
     .catch((error) => {
       next(error);
     });
+}
+
+export async function deleteChatByUser(req: any, res: any, next: any) {
+  const { name } = req.params;
+  return await findChatToDelete(name).then((chat) => {
+    res.status(204).send({ chat });
+  });
 }

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertChats = exports.getChatsByUser = exports.getChats = void 0;
+exports.deleteChatByUser = exports.insertChats = exports.getChatsByUser = exports.getChats = void 0;
 const chat_model_1 = require("../model/chat-model");
 function getChats(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,3 +49,12 @@ function insertChats(req, res, next) {
     });
 }
 exports.insertChats = insertChats;
+function deleteChatByUser(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { name } = req.params;
+        return yield (0, chat_model_1.findChatToDelete)(name).then((chat) => {
+            res.status(204).send({ chat });
+        });
+    });
+}
+exports.deleteChatByUser = deleteChatByUser;
