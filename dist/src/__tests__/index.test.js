@@ -248,4 +248,13 @@ const connect_2 = require("../connect");
             .expect(404);
         (0, globals_1.expect)(response.body.msg).toBe("User does not exist");
     }));
+    (0, globals_1.it)("DELETE/ chat will delete chat by user", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default).delete("/chats/Aasim").expect(204);
+    }));
+    (0, globals_1.it)("DELETE / chat will return error if user does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(index_1.default)
+            .delete("/users/nonexistent")
+            .expect(404);
+        (0, globals_1.expect)(response.body.msg).toBe("User does not exist");
+    }));
 });

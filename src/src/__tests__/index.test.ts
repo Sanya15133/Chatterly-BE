@@ -248,4 +248,13 @@ describe("GET /users", () => {
       .expect(404);
     expect(response.body.msg).toBe("User does not exist");
   });
+  it("DELETE/ chat will delete chat by user", async () => {
+    const response = await request(app).delete("/chats/Aasim").expect(204);
+  });
+  it("DELETE / chat will return error if user does not exist", async () => {
+    const response = await request(app)
+      .delete("/users/nonexistent")
+      .expect(404);
+    expect(response.body.msg).toBe("User does not exist");
+  });
 });
